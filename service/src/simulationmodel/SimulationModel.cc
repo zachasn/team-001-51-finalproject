@@ -37,7 +37,15 @@ IEntity* SimulationModel::createEntity(const JsonObject& entity) {
     // Add the simulation model as a observer to myNewEntity
     myNewEntity->addObserver(this);
   }
-
+  /*
+  std::string encryptionName = details["encryption"];
+  this->notify(encryptionName);
+  if (details.contains("encryption")) {
+    std::string encryptionName = details["encryption"];
+    this->notify(encryptionName);
+  } else {
+      std::cout << "Warning: No 'encryption' key" << std::endl;
+  } */
   return myNewEntity;
 }
 
@@ -65,7 +73,7 @@ void SimulationModel::scheduleTrip(const JsonObject& details) {
 
   for (const auto& key : details.getKeys()) {
     std::cout << key << std::endl;
-  }
+  } 
 
   Package* package = nullptr;
   /*
@@ -88,20 +96,20 @@ void SimulationModel::scheduleTrip(const JsonObject& details) {
     }
   } 
 
-  std::cout << "Made it here" << std::endl;
   if (receiver && package) {
-    std::cout << "Made it here (2)" << std::endl;
     package->initDelivery(receiver);
     std::string strategyName = details["search"];
     package->setStrategyName(strategyName);
+    
     std::string encryptionName = details["encryption"];
     this->notify(encryptionName);
-    if (details.contains("encryption")) {
-      std::string encryptionName = details["encryption"];
-      this->notify(encryptionName);
-    } else {
-        std::cout << "Warning: No 'encryption' key" << std::endl;
+    if (encryptionName != "None") {
+      PackageEncryptionDecorator* DecPackage = new PackageEncryptionDecorator(package, encryptionName);
+      package = DecPackage;
+      std::cout << DecPackage->getEncryptionDetails() << std::endl;
     }
+    
+    //entityFactory.createEntity(details);
     scheduledDeliveries.push_back(package);
     controller.sendEventToView("DeliveryScheduled", details);
   }

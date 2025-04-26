@@ -3,11 +3,12 @@
 PackageEncryptionDecorator::PackageEncryptionDecorator(Package* p, std::string encryption) : PackageDecorator(p), encryptionType(encryption) {} 
 
 std::string PackageEncryptionDecorator::getEncryptionDetails() const {
-    if (encryptionType == "Obelisk-9 Mesh Lock") {
+    std::cout << encryptionType << std::endl;
+    if (encryptionType == "obelisk-9") {
         return "Multi-dimensional hashing grids for fragmentation.";
-    } else if (encryptionType == "Chrono-Lattice Cipher") {
+    } else if (encryptionType == "chrono-lattice") {
         return "Time-dependent quantum lattice encryption.";
-    } else if (encryptionType == "Helix-Vortex Encoding") {
+    } else if (encryptionType == "helix-vortex") {
         return "Recursive spiral-pattern bit shifts.";
     } else {
         return "Invalid encrpytion type or null type, package is not encrypted.";
@@ -19,5 +20,6 @@ void PackageEncryptionDecorator::setEncryptionDetails(std::string encrpytion) {
 }
 
 bool PackageEncryptionDecorator::rand() {
+    std::cout << "Inside the rand function";
     return false;
 }
