@@ -63,9 +63,21 @@ void SimulationModel::scheduleTrip(const JsonObject& details) {
     }
   }
 
-  Package* package = nullptr;
+  for (const auto& key : details.getKeys()) {
+    std::cout << key << std::endl;
+  }
 
-  for (auto& [id, entity] : entities) {
+  Package* package = nullptr;
+  /*
+  PackageFactory factory;
+  IEntity* entity2 = factory.createEntity(details);
+  Package* BasePackage = dynamic_cast<Package*>(entity2);
+  std::cout << "Made it here (3)" << std::endl;
+  PackageEncryptionDecorator* Decpackage = new PackageEncryptionDecorator(BasePackage);
+  Package* package = Decpackage;  
+  */
+
+  for (auto& [id, entity]: entities) {
     if (name + "_package" == entity->getName()) {
       if (Package* p = dynamic_cast<Package*>(entity)) {
         if (p->requiresDelivery()) {
@@ -74,12 +86,22 @@ void SimulationModel::scheduleTrip(const JsonObject& details) {
         }
       }
     }
-  }
+  } 
 
+  std::cout << "Made it here" << std::endl;
   if (receiver && package) {
+    std::cout << "Made it here (2)" << std::endl;
     package->initDelivery(receiver);
     std::string strategyName = details["search"];
     package->setStrategyName(strategyName);
+    std::string encryptionName = details["encryption"];
+    this->notify(encryptionName);
+    if (details.contains("encryption")) {
+      std::string encryptionName = details["encryption"];
+      this->notify(encryptionName);
+    } else {
+        std::cout << "Warning: No 'encryption' key" << std::endl;
+    }
     scheduledDeliveries.push_back(package);
     controller.sendEventToView("DeliveryScheduled", details);
   }
