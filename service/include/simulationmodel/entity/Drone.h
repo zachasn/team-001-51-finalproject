@@ -6,6 +6,8 @@
 #include "IEntity.h"
 #include "IStrategy.h"
 #include "math/vector3.h"
+#include "Publisher.h"
+#include "Observer.h"
 
 class Package;
 
@@ -17,7 +19,7 @@ class Package;
  * @brief Represents a drone in a physical system. Drones move using euler
  * integration based on a specified velocity and direction.
  */
-class Drone : public IEntity {
+class Drone : public IEntity, public Publisher {
  public:
   /**
    * @brief Drones are created with a name

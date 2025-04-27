@@ -11,6 +11,8 @@
 #include "DijkstraStrategy.h"
 #include "Package.h"
 #include "SimulationModel.h"
+#include "Observer.h"
+#include "Publisher.h"
 
 Drone::Drone(const JsonObject& obj) : IEntity(obj) { available = true; }
 
@@ -20,6 +22,7 @@ Drone::~Drone() {
 }
 
 void Drone::getNextDelivery() {
+  addDroneObserver(model->getAdversary());
   if (model && model->scheduledDeliveries.size() > 0) {
     package = model->scheduledDeliveries.front();
     model->scheduledDeliveries.pop_front();
@@ -75,6 +78,8 @@ void Drone::update(double dt) {
     if (package && pickedUp) {
       package->setPosition(position);
       package->setDirection(direction);
+
+      notifyDroneObserver(position);
     }
 
     if (toFinalDestination->isCompleted()) {

@@ -12,6 +12,7 @@
 #include "IEntity.h"
 #include "IObserver.h"
 #include "Robot.h"
+#include "Observer.h"
 
 //--------------------  Model ----------------------------
 
@@ -81,6 +82,8 @@ class SimulationModel : public IObserver {
 
   void notify(const std::string& message) const;
 
+  Observer* getAdversary();
+
   std::deque<Package*> scheduledDeliveries;
 
  protected:
@@ -90,6 +93,7 @@ class SimulationModel : public IObserver {
   void removeFromSim(int id);
   const routing::Graph* graph = nullptr;
   CompositeFactory entityFactory;
+  Observer* adversary = nullptr;
 };
 
 #endif

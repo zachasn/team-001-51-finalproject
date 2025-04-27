@@ -5,6 +5,8 @@
 #include "HumanFactory.h"
 #include "PackageFactory.h"
 #include "RobotFactory.h"
+#include "SkyReaper.h"
+#include "Publisher.h";
 
 SimulationModel::SimulationModel(IController& controller)
     : controller(controller) {
@@ -29,7 +31,16 @@ IEntity* SimulationModel::createEntity(const JsonObject& entity) {
   std::cout << name << ": " << position << std::endl;
 
   IEntity* myNewEntity = nullptr;
-  if (myNewEntity = entityFactory.createEntity(entity)) {
+  std::cout << name << std::endl;
+  if (name == "SkyReaper") {
+    SkyReaper* temp = new SkyReaper(entity);
+    adversary = temp;
+    myNewEntity = temp;
+    myNewEntity->linkModel(this);
+    controller.addEntity(*myNewEntity);
+    entities[myNewEntity->getId()] = myNewEntity;
+    myNewEntity->addObserver(this);
+  } else if (myNewEntity = entityFactory.createEntity(entity)) {
     // Call AddEntity to add it to the view
     myNewEntity->linkModel(this);
     controller.addEntity(*myNewEntity);
@@ -107,9 +118,12 @@ void SimulationModel::scheduleTrip(const JsonObject& details) {
       PackageEncryptionDecorator* DecPackage = new PackageEncryptionDecorator(package, encryptionName);
       package = DecPackage;
       std::cout << DecPackage->getEncryptionDetails() << std::endl;
+      scheduledDeliveries.push_back(package);
+      controller.sendEventToView("DeliveryScheduled", details);
+      return;
     }
     
-    //entityFactory.createEntity(details);
+    entityFactory.createEntity(details);
     scheduledDeliveries.push_back(package);
     controller.sendEventToView("DeliveryScheduled", details);
   }
@@ -156,4 +170,8 @@ void SimulationModel::notify(const std::string& message) const {
   JsonObject details;
   details["message"] = message;
   this->controller.sendEventToView("Notification", details);
+}
+
+Observer* SimulationModel::getAdversary() {
+  return adversary;
 }
