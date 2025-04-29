@@ -56,6 +56,8 @@ class TransitService : public JsonSession, public IController {
       std::cout << "Stop command administered\n";
       stopped = true;
       model.stop();
+    } else if (cmd == "exportData") {
+      model.exportData();
     }
   }
 

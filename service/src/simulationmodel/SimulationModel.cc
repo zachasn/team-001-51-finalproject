@@ -5,6 +5,9 @@
 #include "HumanFactory.h"
 #include "PackageFactory.h"
 #include "RobotFactory.h"
+#include <iostream>
+#include <fstream>
+#include "DataManager.h"
 
 SimulationModel::SimulationModel(IController& controller)
     : controller(controller) {
@@ -121,9 +124,21 @@ void SimulationModel::removeFromSim(int id) {
     delete entity;
   }
 }
-
 void SimulationModel::notify(const std::string& message) const {
   JsonObject details;
   details["message"] = message;
   this->controller.sendEventToView("Notification", details);
+}
+
+void SimulationModel::exportData() const {
+  std::string fileName = "Drone_Data.cvs";
+  int results = DataManager::getInstance().exportData(fileName);
+  if (results == 1) {
+    std::string message = "Failed to export data.";
+    notify(message);
+  }
+  if (results == 0) {
+    std::string message = "Exported data to " + fileName;
+    notify(message);
+  }
 }

@@ -11,8 +11,12 @@
 #include "DijkstraStrategy.h"
 #include "Package.h"
 #include "SimulationModel.h"
+#include "DataManager.h"
 
-Drone::Drone(const JsonObject& obj) : IEntity(obj) { available = true; }
+Drone::Drone(const JsonObject& obj) : IEntity(obj) {
+  available = true;
+  lastPosition = getPosition();
+}
 
 Drone::~Drone() {
   if (toPackage) delete toPackage;
@@ -57,6 +61,7 @@ void Drone::getNextDelivery() {
 }
 
 void Drone::update(double dt) {
+  Vector3 currenPosition = getPosition();
   if (available) getNextDelivery();
 
   if (toPackage) {
@@ -80,6 +85,10 @@ void Drone::update(double dt) {
     if (toFinalDestination->isCompleted()) {
       std::string message = getName() + " dropped off: " + package->getName();
       notifyObservers(message);
+      // increment number of packages this drone delivered
+      DataManager::getInstance().packageDelivered(getId());
+      std::string message2 = "Number of packages delivered: "  + std::to_string(DataManager::getInstance().getNumDelivery(getId()));
+      notifyObservers(message2);
       delete toFinalDestination;
       toFinalDestination = nullptr;
       package->handOff();
@@ -87,6 +96,13 @@ void Drone::update(double dt) {
       available = true;
       pickedUp = false;
     }
+  }
+
+  // calcuate the distance traveled to deliver package(pick up + delivery);
+  Vector3 diff = currenPosition - lastPosition;
+  double distance = diff.magnitude();
+  if (distance > 0.01) {
+    DataManager::getInstance().distanceTraveled(getId(),distance);
   }
 }
 Package* Drone::getPackage() { return package; };

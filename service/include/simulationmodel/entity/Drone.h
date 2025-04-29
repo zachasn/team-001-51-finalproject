@@ -65,6 +65,7 @@ class Drone : public IEntity {
   Package* package = nullptr;
   IStrategy* toPackage = nullptr;
   IStrategy* toFinalDestination = nullptr;
+  Vector3 lastPosition; // to calcuate distance traveled to delivery package
 };
 
 #endif
