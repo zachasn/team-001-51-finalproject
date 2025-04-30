@@ -8,18 +8,21 @@
 #include "Publisher.h"
 
 class Package;
+class Drone;
 
 class SkyReaper : public Observer, public IEntity {
 public:
     SkyReaper(const JsonObject& obj);
     ~SkyReaper();
     Package* interceptPackage();
+    const Vector3* getTargetVec();
     void update(double dt) override;
-    bool available = false;
+    void notifyPosition(const Vector3& location, const Publisher* p) override;
 private:
     Package* package = nullptr;
-    int radius;
     IStrategy* toDrone = nullptr;
+    int radius;
+    const Vector3* target_pos = nullptr;
 };
 
 #endif

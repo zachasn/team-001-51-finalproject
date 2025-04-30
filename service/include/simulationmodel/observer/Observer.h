@@ -5,14 +5,15 @@
 #include <string>
 #include <iostream> 
 #include "math/vector3.h"
+#include "Publisher.h"
+
+class Publisher;
 
 class Observer {
 public:
     Observer() {}
     virtual ~Observer() {}
-    void notifyPosition(const Vector3& position) const {
-        std::cout << "Current position ... " << std::endl;
-    }
+    virtual void notifyPosition(const Vector3& location, const Publisher* p) = 0;
 };
 
 #endif

@@ -5,6 +5,8 @@
 #include "math/vector3.h"
 #include "Observer.h"
 
+class Observer;
+
 class Publisher{
 public:
     Publisher() {};
@@ -16,7 +18,9 @@ public:
         reaper = nullptr;
     }
     void notifyDroneObserver(const Vector3& pos) const {
-        reaper->notifyPosition(pos);
+        if (reaper) {
+            reaper->notifyPosition(pos, this);
+        }
     }
 private:
     Observer* reaper = nullptr;

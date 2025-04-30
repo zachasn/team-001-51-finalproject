@@ -6,7 +6,6 @@
 #include "PackageFactory.h"
 #include "RobotFactory.h"
 #include "SkyReaper.h"
-#include "Publisher.h";
 
 SimulationModel::SimulationModel(IController& controller)
     : controller(controller) {
