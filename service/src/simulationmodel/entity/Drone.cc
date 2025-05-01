@@ -7,15 +7,15 @@
 #include "AstarStrategy.h"
 #include "BeelineStrategy.h"
 #include "BfsStrategy.h"
+#include "DataManager.h"
 #include "DfsStrategy.h"
 #include "DijkstraStrategy.h"
 #include "Package.h"
 #include "SimulationModel.h"
-#include "DataManager.h"
 
 Drone::Drone(const JsonObject& obj) : IEntity(obj) {
   available = true;
-  lastPosition = getPosition();
+  this->lastPosition = this->position;
 }
 
 Drone::~Drone() {
@@ -86,9 +86,7 @@ void Drone::update(double dt) {
       std::string message = getName() + " dropped off: " + package->getName();
       notifyObservers(message);
       // increment number of packages this drone delivered
-      DataManager::getInstance().packageDelivered(getId());
-      std::string message2 = "Number of packages delivered: "  + std::to_string(DataManager::getInstance().getNumDelivery(getId()));
-      notifyObservers(message2);
+      DataManager::getInstance().packagesDelivered(getId());
       delete toFinalDestination;
       toFinalDestination = nullptr;
       package->handOff();
@@ -98,11 +96,12 @@ void Drone::update(double dt) {
     }
   }
 
-  // calcuate the distance traveled to deliver package(pick up + delivery);
-  Vector3 diff = currenPosition - lastPosition;
-  double distance = diff.magnitude();
-  if (distance > 0.01) {
-    DataManager::getInstance().distanceTraveled(getId(),distance);
+  double diff = this->lastPosition.dist(this->position);
+  this->distanceTraveled += diff;
+  this->lastPosition = this->position;
+  if (this->distanceTraveled > 1625.0) {
+    DataManager::getInstance().distanceTraveled(getId());
+    this->distanceTraveled = 0;
   }
 }
 Package* Drone::getPackage() { return package; };

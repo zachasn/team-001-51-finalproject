@@ -1,6 +1,7 @@
 #include <chrono>  // NOLINT [build/c++11]
 #include <map>
 
+#include "DataManager.h"
 #include "OBJParser.h"
 #include "SimulationModel.h"
 #include "WebServer.h"
@@ -57,7 +58,14 @@ class TransitService : public JsonSession, public IController {
       stopped = true;
       model.stop();
     } else if (cmd == "exportData") {
-      model.exportData();
+      int result = DataManager::getInstance().exportData();
+      if (result == 1) {
+        std::string message = "failure";
+        model.notify(message);
+      } else {
+        std::string message = "success";
+        model.notify(message);
+      }
     }
   }
 

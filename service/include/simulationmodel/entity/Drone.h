@@ -5,7 +5,6 @@
 
 #include "IEntity.h"
 #include "IStrategy.h"
-#include "math/vector3.h"
 
 class Package;
 
@@ -65,7 +64,9 @@ class Drone : public IEntity {
   Package* package = nullptr;
   IStrategy* toPackage = nullptr;
   IStrategy* toFinalDestination = nullptr;
-  Vector3 lastPosition; // to calcuate distance traveled to delivery package
+  // to calculate distance traveled by drone when its delivering a package
+  double distanceTraveled = 0;
+  Vector3 lastPosition;
 };
 
 #endif

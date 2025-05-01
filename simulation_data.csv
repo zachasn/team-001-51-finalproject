@@ -1,0 +1,4 @@
+Entity_id,Entity_name,Distance_traveled,Packages_delivered,Lost_packages,Condition
+0,Drone,0,0,0,
+2,Human-OG,1,0,0,
+3,Helicopter,9,0,0,

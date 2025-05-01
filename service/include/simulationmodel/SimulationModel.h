@@ -81,8 +81,6 @@ class SimulationModel : public IObserver {
 
   void notify(const std::string& message) const;
 
-  void exportData() const;
-
   std::deque<Package*> scheduledDeliveries;
 
  protected:

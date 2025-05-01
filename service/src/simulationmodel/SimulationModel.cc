@@ -1,14 +1,11 @@
 #include "SimulationModel.h"
 
+#include "DataManager.h"
 #include "DroneFactory.h"
 #include "HelicopterFactory.h"
 #include "HumanFactory.h"
 #include "PackageFactory.h"
 #include "RobotFactory.h"
-#include <iostream>
-#include <fstream>
-#include "DataManager.h"
-
 SimulationModel::SimulationModel(IController& controller)
     : controller(controller) {
   entityFactory.addFactory(new DroneFactory());
@@ -29,10 +26,15 @@ SimulationModel::~SimulationModel() {
 IEntity* SimulationModel::createEntity(const JsonObject& entity) {
   std::string name = entity["name"];
   JsonArray position = entity["position"];
+  std::string type = entity["type"];
   std::cout << name << ": " << position << std::endl;
 
   IEntity* myNewEntity = nullptr;
   if (myNewEntity = entityFactory.createEntity(entity)) {
+    // if the entity is not a package, add it to the data manager
+    if (type != "package") {
+      DataManager::getInstance().addEntity(myNewEntity->getId(), name);
+    }
     // Call AddEntity to add it to the view
     myNewEntity->linkModel(this);
     controller.addEntity(*myNewEntity);
@@ -124,21 +126,9 @@ void SimulationModel::removeFromSim(int id) {
     delete entity;
   }
 }
+
 void SimulationModel::notify(const std::string& message) const {
   JsonObject details;
   details["message"] = message;
   this->controller.sendEventToView("Notification", details);
-}
-
-void SimulationModel::exportData() const {
-  std::string fileName = "Drone_Data.cvs";
-  int results = DataManager::getInstance().exportData(fileName);
-  if (results == 1) {
-    std::string message = "Failed to export data.";
-    notify(message);
-  }
-  if (results == 0) {
-    std::string message = "Exported data to " + fileName;
-    notify(message);
-  }
 }
