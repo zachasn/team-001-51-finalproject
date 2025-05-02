@@ -11,8 +11,8 @@
 #include "DijkstraStrategy.h"
 #include "Package.h"
 #include "SimulationModel.h"
-#include "Observer.h"
-#include "Publisher.h"
+#include "DroneObserver.h"
+#include "DronePublisher.h"
 
 Drone::Drone(const JsonObject& obj) : IEntity(obj) { available = true; }
 
@@ -74,6 +74,7 @@ void Drone::update(double dt) {
     }
   } else if (toFinalDestination) {
     toFinalDestination->move(this, dt);
+    notifyDroneObserver(position);
 
     if (package && pickedUp) {
       package->setPosition(position);
@@ -95,3 +96,7 @@ void Drone::update(double dt) {
   }
 }
 Package* Drone::getPackage() { return package; };
+
+void Drone::notifyDroneObserver(const Vector3& pos) {
+  this->getReaper()->notifyPosition(pos, this);
+}

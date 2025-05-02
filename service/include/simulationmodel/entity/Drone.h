@@ -6,8 +6,8 @@
 #include "IEntity.h"
 #include "IStrategy.h"
 #include "math/vector3.h"
-#include "Publisher.h"
-#include "Observer.h"
+#include "DronePublisher.h"
+#include "DroneObserver.h"
 
 class Package;
 
@@ -19,7 +19,7 @@ class Package;
  * @brief Represents a drone in a physical system. Drones move using euler
  * integration based on a specified velocity and direction.
  */
-class Drone : public IEntity, public Publisher {
+class Drone : public IEntity, public DronePublisher {
  public:
   /**
    * @brief Drones are created with a name
@@ -59,6 +59,8 @@ class Drone : public IEntity, public Publisher {
    * so that drones cannot be copied.
    */
   Drone& operator=(const Drone& drone) = delete;
+
+  void notifyDroneObserver(const Vector3& pos) override;
 
   bool available = false;
   bool pickedUp = false;

@@ -4,25 +4,25 @@
 #include "IEntity.h" 
 #include "IStrategy.h" 
 #include "math/vector3.h"
-#include "Observer.h"
-#include "Publisher.h"
+#include "DroneObserver.h"
+#include "DronePublisher.h"
 
 class Package;
 class Drone;
 
-class SkyReaper : public Observer, public IEntity {
+class SkyReaper : public DroneObserver, public IEntity {
 public:
     SkyReaper(const JsonObject& obj);
     ~SkyReaper();
     Package* interceptPackage();
-    const Vector3* getTargetVec();
     void update(double dt) override;
-    void notifyPosition(const Vector3& location, const Publisher* p) override;
+    void notifyPosition(const Vector3& location, const Drone* d) override;
+    const Drone* target = nullptr;
+    Vector3 target_pos;
+    double radius = 50.0;
 private:
     Package* package = nullptr;
     IStrategy* toDrone = nullptr;
-    int radius;
-    const Vector3* target_pos = nullptr;
 };
 
 #endif

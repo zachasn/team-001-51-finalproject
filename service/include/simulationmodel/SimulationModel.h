@@ -12,7 +12,7 @@
 #include "IEntity.h"
 #include "IObserver.h"
 #include "Robot.h"
-#include "Observer.h"
+#include "DroneObserver.h"
 
 //--------------------  Model ----------------------------
 
@@ -82,7 +82,7 @@ class SimulationModel : public IObserver {
 
   void notify(const std::string& message) const;
 
-  Observer* getAdversary();
+  DroneObserver* getAdversary();
 
   std::deque<Package*> scheduledDeliveries;
 
@@ -93,7 +93,7 @@ class SimulationModel : public IObserver {
   void removeFromSim(int id);
   const routing::Graph* graph = nullptr;
   CompositeFactory entityFactory;
-  Observer* adversary = nullptr;
+  DroneObserver* adversary = nullptr;
 };
 
 #endif

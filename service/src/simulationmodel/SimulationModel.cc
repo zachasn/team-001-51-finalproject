@@ -171,6 +171,6 @@ void SimulationModel::notify(const std::string& message) const {
   this->controller.sendEventToView("Notification", details);
 }
 
-Observer* SimulationModel::getAdversary() {
+DroneObserver* SimulationModel::getAdversary() {
   return adversary;
 }
