@@ -7,9 +7,12 @@
 
 class DroneDamageDecorator : public DroneDecorator {
  private:
-  
+  double damageFactor = 0;
+  double timeAccumulator = 0;
+
  public:
-  
+  DroneDamageDecorator(Drone* d);
+  void update(double dt);
 };
 
 #endif  // DRONE_DAMAGE_DECORATOR_H
