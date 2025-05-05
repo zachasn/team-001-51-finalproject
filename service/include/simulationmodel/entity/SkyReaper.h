@@ -14,10 +14,10 @@ class SkyReaper : public DroneObserver, public IEntity {
 public:
     SkyReaper(const JsonObject& obj);
     ~SkyReaper();
-    Package* interceptPackage();
+    void interceptPackage();
     void update(double dt) override;
-    void notifyPosition(const Vector3& location, const Drone* d) override;
-    const Drone* target = nullptr;
+    void notifyPosition(const Vector3& location, Drone* d) override;
+    Drone* target = nullptr;
     Vector3 target_pos;
     double radius = 50.0;
 private:

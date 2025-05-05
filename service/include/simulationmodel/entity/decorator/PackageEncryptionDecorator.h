@@ -12,7 +12,7 @@ public:
     PackageEncryptionDecorator(Package* p, std::string encryption = "none");
     std::string getEncryptionDetails() const;
     void setEncryptionDetails(std::string encrpytion);
-    bool rand(); 
+    std::string getEncryptionType() const;
 };
 
 #endif

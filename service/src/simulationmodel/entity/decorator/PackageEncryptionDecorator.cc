@@ -19,7 +19,6 @@ void PackageEncryptionDecorator::setEncryptionDetails(std::string encrpytion) {
     encryptionType = encrpytion;
 }
 
-bool PackageEncryptionDecorator::rand() {
-    std::cout << "Inside the rand function";
-    return false;
+std::string PackageEncryptionDecorator::getEncryptionType() const {
+    return encryptionType;
 }

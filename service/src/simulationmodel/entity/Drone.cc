@@ -95,7 +95,14 @@ void Drone::update(double dt) {
     }
   }
 }
-Package* Drone::getPackage() { return package; };
+Package* Drone::getPackage() const { return package; };
+
+void Drone::takePackage() {
+  package = nullptr;
+  toFinalDestination = nullptr;
+  available = true;
+  pickedUp = false;
+}
 
 void Drone::notifyDroneObserver(const Vector3& pos) {
   this->getReaper()->notifyPosition(pos, this);

@@ -6,6 +6,7 @@
 #include "PackageFactory.h"
 #include "RobotFactory.h"
 #include "SkyReaper.h"
+#include "PackageEncryptionDecorator.h"
 
 SimulationModel::SimulationModel(IController& controller)
     : controller(controller) {
@@ -31,6 +32,11 @@ IEntity* SimulationModel::createEntity(const JsonObject& entity) {
 
   IEntity* myNewEntity = nullptr;
   std::cout << name << std::endl;
+  if (entity.contains("encryption")) {
+    std::string c = entity["encryption"];
+    std::cout << "Contains encryption" << std::endl;
+    std::cout << c << std::endl;
+  }
   if (name == "SkyReaper") {
     SkyReaper* temp = new SkyReaper(entity);
     adversary = temp;
@@ -81,19 +87,7 @@ void SimulationModel::scheduleTrip(const JsonObject& details) {
     }
   }
 
-  for (const auto& key : details.getKeys()) {
-    std::cout << key << std::endl;
-  } 
-
   Package* package = nullptr;
-  /*
-  PackageFactory factory;
-  IEntity* entity2 = factory.createEntity(details);
-  Package* BasePackage = dynamic_cast<Package*>(entity2);
-  std::cout << "Made it here (3)" << std::endl;
-  PackageEncryptionDecorator* Decpackage = new PackageEncryptionDecorator(BasePackage);
-  Package* package = Decpackage;  
-  */
 
   for (auto& [id, entity]: entities) {
     if (name + "_package" == entity->getName()) {
@@ -113,15 +107,17 @@ void SimulationModel::scheduleTrip(const JsonObject& details) {
     
     std::string encryptionName = details["encryption"];
     this->notify(encryptionName);
+    encryptionType = encryptionName;
+
+    
     if (encryptionName != "None") {
       PackageEncryptionDecorator* DecPackage = new PackageEncryptionDecorator(package, encryptionName);
       package = DecPackage;
-      std::cout << DecPackage->getEncryptionDetails() << std::endl;
       scheduledDeliveries.push_back(package);
       controller.sendEventToView("DeliveryScheduled", details);
       return;
     }
-    
+
     entityFactory.createEntity(details);
     scheduledDeliveries.push_back(package);
     controller.sendEventToView("DeliveryScheduled", details);
@@ -173,4 +169,8 @@ void SimulationModel::notify(const std::string& message) const {
 
 DroneObserver* SimulationModel::getAdversary() {
   return adversary;
+}
+
+std::string SimulationModel::getEncryption() {
+  return encryptionType;
 }

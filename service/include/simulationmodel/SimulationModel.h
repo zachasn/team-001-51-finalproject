@@ -84,6 +84,8 @@ class SimulationModel : public IObserver {
 
   DroneObserver* getAdversary();
 
+  std::string getEncryption();
+
   std::deque<Package*> scheduledDeliveries;
 
  protected:
@@ -94,6 +96,7 @@ class SimulationModel : public IObserver {
   const routing::Graph* graph = nullptr;
   CompositeFactory entityFactory;
   DroneObserver* adversary = nullptr;
+  std::string encryptionType;
 };
 
 #endif

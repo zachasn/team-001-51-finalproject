@@ -40,7 +40,7 @@ class Drone : public IEntity, public DronePublisher {
   /**
    * @brief Returns package it has assigned
    */
-  Package* getPackage();
+  Package* getPackage() const;
 
   /**
    * @brief Updates the drone's position
@@ -61,6 +61,8 @@ class Drone : public IEntity, public DronePublisher {
   Drone& operator=(const Drone& drone) = delete;
 
   void notifyDroneObserver(const Vector3& pos) override;
+
+  void takePackage();
 
   bool available = false;
   bool pickedUp = false;

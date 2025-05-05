@@ -15,7 +15,7 @@ class DroneObserver {
 public:
     DroneObserver() {}
     virtual ~DroneObserver() {}
-    virtual void notifyPosition(const Vector3& location, const Drone* d) = 0;
+    virtual void notifyPosition(const Vector3& location, Drone* d) = 0;
 };
 
 #endif
