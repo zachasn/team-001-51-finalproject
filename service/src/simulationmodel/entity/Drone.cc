@@ -9,10 +9,10 @@
 #include "BfsStrategy.h"
 #include "DfsStrategy.h"
 #include "DijkstraStrategy.h"
-#include "Package.h"
-#include "SimulationModel.h"
 #include "DroneObserver.h"
 #include "DronePublisher.h"
+#include "Package.h"
+#include "SimulationModel.h"
 
 Drone::Drone(const JsonObject& obj) : IEntity(obj) { available = true; }
 

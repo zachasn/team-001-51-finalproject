@@ -7,12 +7,12 @@
 
 #include "CompositeFactory.h"
 #include "Drone.h"
+#include "DroneObserver.h"
 #include "Graph.h"
 #include "IController.h"
 #include "IEntity.h"
 #include "IObserver.h"
 #include "Robot.h"
-#include "DroneObserver.h"
 
 //--------------------  Model ----------------------------
 

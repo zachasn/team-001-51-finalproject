@@ -3,11 +3,11 @@
 
 #include <vector>
 
+#include "DroneObserver.h"
+#include "DronePublisher.h"
 #include "IEntity.h"
 #include "IStrategy.h"
 #include "math/vector3.h"
-#include "DronePublisher.h"
-#include "DroneObserver.h"
 
 class Package;
 

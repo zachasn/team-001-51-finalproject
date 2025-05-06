@@ -3,10 +3,10 @@
 #include "DroneFactory.h"
 #include "HelicopterFactory.h"
 #include "HumanFactory.h"
+#include "PackageEncryptionDecorator.h"
 #include "PackageFactory.h"
 #include "RobotFactory.h"
 #include "SkyReaper.h"
-#include "PackageEncryptionDecorator.h"
 
 SimulationModel::SimulationModel(IController& controller)
     : controller(controller) {
@@ -89,7 +89,7 @@ void SimulationModel::scheduleTrip(const JsonObject& details) {
 
   Package* package = nullptr;
 
-  for (auto& [id, entity]: entities) {
+  for (auto& [id, entity] : entities) {
     if (name + "_package" == entity->getName()) {
       if (Package* p = dynamic_cast<Package*>(entity)) {
         if (p->requiresDelivery()) {
@@ -98,20 +98,20 @@ void SimulationModel::scheduleTrip(const JsonObject& details) {
         }
       }
     }
-  } 
+  }
 
   if (receiver && package) {
     package->initDelivery(receiver);
     std::string strategyName = details["search"];
     package->setStrategyName(strategyName);
-    
+
     std::string encryptionName = details["encryption"];
     this->notify(encryptionName);
     encryptionType = encryptionName;
 
-    
     if (encryptionName != "None") {
-      PackageEncryptionDecorator* DecPackage = new PackageEncryptionDecorator(package, encryptionName);
+      PackageEncryptionDecorator* DecPackage =
+          new PackageEncryptionDecorator(package, encryptionName);
       package = DecPackage;
       scheduledDeliveries.push_back(package);
       controller.sendEventToView("DeliveryScheduled", details);
@@ -167,10 +167,6 @@ void SimulationModel::notify(const std::string& message) const {
   this->controller.sendEventToView("Notification", details);
 }
 
-DroneObserver* SimulationModel::getAdversary() {
-  return adversary;
-}
+DroneObserver* SimulationModel::getAdversary() { return adversary; }
 
-std::string SimulationModel::getEncryption() {
-  return encryptionType;
-}
+std::string SimulationModel::getEncryption() { return encryptionType; }
