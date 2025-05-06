@@ -1,4 +1,9 @@
-Entity_id,Entity_name,Distance_traveled,Packages_delivered,Lost_packages,Condition
-0,Drone,0,0,0,
-2,Human-OG,1,0,0,
-3,Helicopter,9,0,0,
+Creation_time, Entity_type,Entity_id,Entity_name,Distance_traveled(miles),Packages_delivered,Lost_packages,Condition
+May 06 2025 11:29,drone,0,Drone,4,2,0,operational
+May 06 2025 11:29,human,2,Human-OG,8,0,0,operational
+May 06 2025 11:29,helicopter,3,Helicopter,40,0,0,operational
+May 06 2025 11:29,drone,4,drone-1,0,1,0,operational
+May 06 2025 11:29,human,6,Human-1,7,0,0,operational
+May 06 2025 11:29,drone,7,drone-2,0,0,0,operational
+May 06 2025 11:34,drone,15,drone-3,0,0,0,operational
+May 06 2025 11:34,human,17,Human-2,0,0,0,operational

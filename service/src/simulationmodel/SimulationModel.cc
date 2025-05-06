@@ -27,13 +27,14 @@ IEntity* SimulationModel::createEntity(const JsonObject& entity) {
   std::string name = entity["name"];
   JsonArray position = entity["position"];
   std::string type = entity["type"];
+  std::cout << "type: " << type << std::endl;
   std::cout << name << ": " << position << std::endl;
 
   IEntity* myNewEntity = nullptr;
   if (myNewEntity = entityFactory.createEntity(entity)) {
-    // if the entity is not a package, add it to the data manager
-    if (type != "package") {
-      DataManager::getInstance().addEntity(myNewEntity->getId(), name);
+    // ignore package and robot entities
+    if (type != "package" && type != "robot") {
+      DataManager::getInstance().addEntity(myNewEntity->getId(), name, type);
     }
     // Call AddEntity to add it to the view
     myNewEntity->linkModel(this);
