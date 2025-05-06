@@ -1,12 +1,11 @@
-#ifndef WEATHER_CONTROL_H
-#define WEATHER_CONTROL_H
+#ifndef WEATHER_CONTROL_H_
+#define WEATHER_CONTROL_H_
+
+#include "../math/vector3.h"
 
 class WeatherControl {
  protected:
-  WeatherControl() {
-    updateInterval = 1;
-    timeAccumulator = 0;
-  }
+  WeatherControl();
 
   static WeatherControl* weatherControl_;
 
@@ -18,17 +17,11 @@ class WeatherControl {
 
   void operator=(const WeatherControl&) = delete;
 
-  static WeatherControl* GetInstance(const std::string& value);
+  static WeatherControl* GetInstance();
+
+  void update(double dt);
+  void updateWind();
 
 };
-
-WeatherControl* WeatherControl::weatherControl_ = nullptr;
-
-WeatherControl* WeatherControl::GetInstance(const std::string& value) {
-  if (weatherControl_ == nullptr) {
-    weatherControl_ = new Singleton(value);
-  }
-  return weatherControl_;
-}
 
 #endif
