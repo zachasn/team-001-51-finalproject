@@ -17,7 +17,7 @@ WeatherControl* WeatherControl::GetInstance() {
 
 void WeatherControl::update(double dt) {
     this->timeAccumulator += dt;
-    if (timeAccumulator > updateInterval) {
+    if (timeAccumulator >= updateInterval) {
         this->updateWind();
         timeAccumulator = 0;
     }

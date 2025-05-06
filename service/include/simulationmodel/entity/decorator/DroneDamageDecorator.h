@@ -3,12 +3,14 @@
 
 #include "Drone.h"
 #include "DroneDecorator.h"
+#include "DroneColorDecorator.h"
 #include "Package.h"
 
 class DroneDamageDecorator : public DroneDecorator {
  private:
-  double damageFactor = 0;
-  double timeAccumulator = 0;
+  double damageFactor;
+  double timeAccumulator;
+  Drone* original_drone;
 
  public:
   DroneDamageDecorator(Drone* d);

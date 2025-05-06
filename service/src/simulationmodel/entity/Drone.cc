@@ -64,6 +64,16 @@ double Drone::getDurability() {
   return durability;
 }
 
+void Drone::updateDurability(double damage) {
+  durability -= damage;
+
+  if (durability <= 0) {
+    std::cout << "drone broke" << std::endl;
+    durability = 0;
+    speed = 0;
+  }
+}
+
 void Drone::update(double dt) {
 
   // Apply effect of wind to drone

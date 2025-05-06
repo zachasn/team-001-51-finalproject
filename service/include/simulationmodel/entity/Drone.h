@@ -46,6 +46,12 @@ class Drone : public IEntity {
   double getDurability();
 
   /**
+   * @brief updates the drones current durability level
+   * @param damage the amount of damage to inflict on current drone durability
+   */
+  void updateDurability(double damage);
+
+  /**
    * @brief Updates the drone's position
    * @param dt Delta time
    */
