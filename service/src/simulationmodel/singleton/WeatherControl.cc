@@ -24,5 +24,16 @@ void WeatherControl::update(double dt) {
 }
 
 void WeatherControl::updateWind() {
-    
+
+  double sigma = 1.0;
+
+  std::random_device rand;
+  std::mt19937 fast_gen(rand());
+  std::normal_distribution<double> normal_dist(0.0, sigma);
+
+  Vector3 delta_wind(normal_dist(fast_gen), normal_dist(fast_gen), 0);
+
+  wind = wind + delta_wind;
+
+  // std::cout << "current wind vector: " << wind << std::endl;
 }

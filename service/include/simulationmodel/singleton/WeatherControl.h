@@ -2,6 +2,8 @@
 #define WEATHER_CONTROL_H_
 
 #include "../math/vector3.h"
+#include <iostream>
+#include <random>
 
 class WeatherControl {
  protected:
@@ -11,6 +13,7 @@ class WeatherControl {
 
   double updateInterval;
   double timeAccumulator;
+  Vector3 wind;
 
  public:
   WeatherControl(WeatherControl& other) = delete;
