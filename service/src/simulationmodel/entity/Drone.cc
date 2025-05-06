@@ -11,6 +11,7 @@
 #include "DijkstraStrategy.h"
 #include "Package.h"
 #include "SimulationModel.h"
+#include "WeatherControl.h"
 
 Drone::Drone(const JsonObject& obj) : IEntity(obj) { available = true; }
 
@@ -57,6 +58,10 @@ void Drone::getNextDelivery() {
 }
 
 void Drone::update(double dt) {
+  WeatherControl* w = WeatherControl::GetInstance();
+  Vector3 scaledWind = w->getWind() * (dt / 10);
+  position = position + scaledWind;
+
   if (available) getNextDelivery();
 
   if (toPackage) {
@@ -88,5 +93,13 @@ void Drone::update(double dt) {
       pickedUp = false;
     }
   }
+
+  // enforce map boundaries
+  if (position.x < -1450) position.x = -1450;
+  if (position.x > 1550) position.x = 1550;
+
+  if (position.z < -850) position.z = -850;
+  if (position.z > 850) position.z = 850;
+
 }
 Package* Drone::getPackage() { return package; };

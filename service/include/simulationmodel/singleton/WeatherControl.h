@@ -10,7 +10,6 @@ class WeatherControl {
   WeatherControl();
 
   static WeatherControl* weatherControl_;
-
   double updateInterval;
   double timeAccumulator;
   Vector3 wind;
@@ -24,6 +23,7 @@ class WeatherControl {
 
   void update(double dt);
   void updateWind();
+  Vector3 getWind() {return wind;}
 
 };
 

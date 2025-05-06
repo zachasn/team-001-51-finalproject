@@ -23,17 +23,26 @@ void WeatherControl::update(double dt) {
     }
 }
 
+double enforce_bounds(double val) {
+  if (val < -200) return -200;
+  if (val > 200) return 200;
+  return val;
+}
+
 void WeatherControl::updateWind() {
 
-  double sigma = 1.0;
+  double sigma = 3.0;
 
   std::random_device rand;
   std::mt19937 fast_gen(rand());
   std::normal_distribution<double> normal_dist(0.0, sigma);
 
-  Vector3 delta_wind(normal_dist(fast_gen), normal_dist(fast_gen), 0);
+  Vector3 delta_wind(normal_dist(fast_gen), 0, normal_dist(fast_gen));
 
   wind = wind + delta_wind;
 
-  // std::cout << "current wind vector: " << wind << std::endl;
+  for (int i = 0; i < 3; ++i)
+    wind[i] = enforce_bounds(wind[i]);
+
+  std::cout << "current wind vector: " << wind << std::endl;
 }
