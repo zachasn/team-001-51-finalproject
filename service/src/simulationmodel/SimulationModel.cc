@@ -6,6 +6,8 @@
 #include "PackageFactory.h"
 #include "RobotFactory.h"
 
+#include "WeatherControl.h"
+
 SimulationModel::SimulationModel(IController& controller)
     : controller(controller) {
   entityFactory.addFactory(new DroneFactory());
@@ -102,6 +104,7 @@ void SimulationModel::update(double dt) {
     removeFromSim(id);
   }
   removed.clear();
+  WeatherControl::GetInstance()->update(dt);
 }
 
 void SimulationModel::stop(void) {}
