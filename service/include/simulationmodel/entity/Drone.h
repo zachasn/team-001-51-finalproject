@@ -41,6 +41,11 @@ class Drone : public IEntity {
   Package* getPackage();
 
   /**
+   * @brief Returns the drones current durability level
+   */
+  double getDurability();
+
+  /**
    * @brief Updates the drone's position
    * @param dt Delta time
    */
@@ -62,6 +67,7 @@ class Drone : public IEntity {
   bool pickedUp = false;
 
  private:
+  double durability;
   Package* package = nullptr;
   IStrategy* toPackage = nullptr;
   IStrategy* toFinalDestination = nullptr;

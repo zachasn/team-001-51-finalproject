@@ -13,7 +13,10 @@
 #include "SimulationModel.h"
 #include "WeatherControl.h"
 
-Drone::Drone(const JsonObject& obj) : IEntity(obj) { available = true; }
+Drone::Drone(const JsonObject& obj) : IEntity(obj) { 
+  available = true; 
+  durability = 100; 
+}
 
 Drone::~Drone() {
   if (toPackage) delete toPackage;
@@ -55,6 +58,10 @@ void Drone::getNextDelivery() {
       }
     }
   }
+}
+
+double Drone::getDurability() {
+  return durability;
 }
 
 void Drone::update(double dt) {
