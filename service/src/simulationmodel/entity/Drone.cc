@@ -58,6 +58,8 @@ void Drone::getNextDelivery() {
 }
 
 void Drone::update(double dt) {
+
+  // Apply effect of wind to drone
   WeatherControl* w = WeatherControl::GetInstance();
   Vector3 scaledWind = w->getWind() * (dt / 10);
   position = position + scaledWind;
@@ -95,11 +97,11 @@ void Drone::update(double dt) {
   }
 
   // enforce map boundaries
-  if (position.x < -1450) position.x = -1450;
-  if (position.x > 1550) position.x = 1550;
+  if (position.x < -1470) position.x = -1470;
+  if (position.x > 1570) position.x = 1570;
 
-  if (position.z < -850) position.z = -850;
-  if (position.z > 850) position.z = 850;
+  if (position.z < -880) position.z = -880;
+  if (position.z > 880) position.z = 880;
 
 }
 Package* Drone::getPackage() { return package; };
