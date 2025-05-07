@@ -10,7 +10,6 @@ class DroneDecorator : public IEntityDecorator<Drone> {
   DroneDecorator(Drone* d) : IEntityDecorator(d) {}
   virtual void getNextDelivery() { return sub->getNextDelivery(); };
   virtual Package* getPackage() { return sub->getPackage(); };
-  virtual Drone* getSub() { return sub; };
 };
 
 #endif
