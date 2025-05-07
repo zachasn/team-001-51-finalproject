@@ -3,8 +3,12 @@
 
 #include <vector>
 
+#include "DroneObserver.h"
+#include "DronePublisher.h"
 #include "IEntity.h"
 #include "IStrategy.h"
+#include "math/vector3.h"
+#include "WeatherControl.h"
 
 class Package;
 
@@ -16,7 +20,7 @@ class Package;
  * @brief Represents a drone in a physical system. Drones move using euler
  * integration based on a specified velocity and direction.
  */
-class Drone : public IEntity {
+class Drone : public IEntity, public DronePublisher {
  public:
   /**
    * @brief Drones are created with a name
@@ -37,7 +41,29 @@ class Drone : public IEntity {
   /**
    * @brief Returns package it has assigned
    */
-  Package* getPackage();
+  Package* getPackage() const;
+
+  /**
+   * @brief Returns the drones current durability level
+   */
+  double getDurability();
+
+  /**
+   * @brief updates the drones current durability level
+   * @param damage the amount of damage to inflict on current drone durability
+   */
+  void updateDurability(double damage);
+
+  /**
+   * @brief updates the drones movement speed based on its current durability
+   */
+  void updateSpeedBasedOnDurability();
+
+  /**
+   * @brief applies the effect of the wind disturbance to the drones position
+   * @param dt Delta time
+   */
+  void applyWind(double dt);
 
   /**
    * @brief Updates the drone's position
@@ -57,16 +83,22 @@ class Drone : public IEntity {
    */
   Drone& operator=(const Drone& drone) = delete;
 
+  void notifyDroneObserver(const Vector3& pos) override;
+
+  void takePackage();
+
   bool available = false;
   bool pickedUp = false;
 
  private:
+  double durability;
   Package* package = nullptr;
   IStrategy* toPackage = nullptr;
   IStrategy* toFinalDestination = nullptr;
   // to calculate distance traveled by drone when its delivering a package
   double distanceTraveled = 0;
   Vector3 lastPosition;
+  WeatherControl* weather;
 };
 
 #endif

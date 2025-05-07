@@ -5,6 +5,7 @@
 
 #include "IEntityFactory.h"
 #include "Package.h"
+#include "PackageEncryptionDecorator.h"
 
 /**
  *@brief Package Factory to produce Package class.
