@@ -52,6 +52,11 @@ class Drone : public IEntity {
   void updateDurability(double damage);
 
   /**
+   * @brief updates the drones movement speed based on its current durability
+   */
+  void updateSpeedBasedOnDurability();
+
+  /**
    * @brief Updates the drone's position
    * @param dt Delta time
    */

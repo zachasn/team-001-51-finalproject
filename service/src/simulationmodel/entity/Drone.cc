@@ -68,10 +68,15 @@ void Drone::updateDurability(double damage) {
   durability -= damage;
 
   if (durability <= 0) {
-    // std::cout << "drone broke" << std::endl;
-    durability = 0;
-    speed = 0;
+    notifyObservers(name + " has broken and been removed from the simulation.");
+    model->scheduledDeliveries.push_back(package);
+    model->removeEntity(id);
   }
+}
+
+void Drone::updateSpeedBasedOnDurability() {
+  // speed decreases linearly down to a minumum of half its original speed before drone breaks
+  speed = 30 * (durability / 200);
 }
 
 void Drone::update(double dt) {
