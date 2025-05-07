@@ -53,14 +53,14 @@
       "name": "SkyReaper",
       "mesh": "assets/model/drone.glb",
       "position": [
-        100,
-        100,
-        -200
+        -498.292,
+        270,
+        228.623
       ],
       "scale": [
-        0.1,
-        0.1,
-        0.1
+        0.3,
+        0.3,
+        0.3
       ],
       "rotation": [
         0,
