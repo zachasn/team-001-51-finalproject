@@ -7,6 +7,7 @@
 
 #include "CompositeFactory.h"
 #include "Drone.h"
+#include "DroneObserver.h"
 #include "Graph.h"
 #include "IController.h"
 #include "IEntity.h"
@@ -82,6 +83,10 @@ class SimulationModel : public IObserver {
 
   void notify(const std::string& message) const;
 
+  DroneObserver* getAdversary();
+
+  std::string getEncryption();
+
   std::deque<Package*> scheduledDeliveries;
 
  protected:
@@ -92,6 +97,8 @@ class SimulationModel : public IObserver {
   void removeFromSim(int id);
   const routing::Graph* graph = nullptr;
   CompositeFactory entityFactory;
+  DroneObserver* adversary = nullptr;
+  std::string encryptionType;
 };
 
 #endif

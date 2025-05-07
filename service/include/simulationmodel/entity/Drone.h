@@ -3,6 +3,8 @@
 
 #include <vector>
 
+#include "DroneObserver.h"
+#include "DronePublisher.h"
 #include "IEntity.h"
 #include "IStrategy.h"
 #include "math/vector3.h"
@@ -18,7 +20,7 @@ class Package;
  * @brief Represents a drone in a physical system. Drones move using euler
  * integration based on a specified velocity and direction.
  */
-class Drone : public IEntity {
+class Drone : public IEntity, public DronePublisher {
  public:
   /**
    * @brief Drones are created with a name
@@ -39,7 +41,7 @@ class Drone : public IEntity {
   /**
    * @brief Returns package it has assigned
    */
-  Package* getPackage();
+  Package* getPackage() const;
 
   /**
    * @brief Returns the drones current durability level
@@ -80,6 +82,10 @@ class Drone : public IEntity {
    * so that drones cannot be copied.
    */
   Drone& operator=(const Drone& drone) = delete;
+
+  void notifyDroneObserver(const Vector3& pos) override;
+
+  void takePackage();
 
   bool available = false;
   bool pickedUp = false;

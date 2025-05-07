@@ -3,8 +3,10 @@
 #include "DroneFactory.h"
 #include "HelicopterFactory.h"
 #include "HumanFactory.h"
+#include "PackageEncryptionDecorator.h"
 #include "PackageFactory.h"
 #include "RobotFactory.h"
+#include "SkyReaper.h"
 
 
 
@@ -33,7 +35,21 @@ IEntity* SimulationModel::createEntity(const JsonObject& entity) {
   std::cout << name << ": " << position << std::endl;
 
   IEntity* myNewEntity = nullptr;
-  if (myNewEntity = entityFactory.createEntity(entity)) {
+  std::cout << name << std::endl;
+  if (entity.contains("encryption")) {
+    std::string c = entity["encryption"];
+    std::cout << "Contains encryption" << std::endl;
+    std::cout << c << std::endl;
+  }
+  if (name == "SkyReaper") {
+    SkyReaper* temp = new SkyReaper(entity);
+    adversary = temp;
+    myNewEntity = temp;
+    myNewEntity->linkModel(this);
+    controller.addEntity(*myNewEntity);
+    entities[myNewEntity->getId()] = myNewEntity;
+    myNewEntity->addObserver(this);
+  } else if (myNewEntity = entityFactory.createEntity(entity)) {
     // Call AddEntity to add it to the view
     myNewEntity->linkModel(this);
     controller.addEntity(*myNewEntity);
@@ -41,7 +57,15 @@ IEntity* SimulationModel::createEntity(const JsonObject& entity) {
     // Add the simulation model as a observer to myNewEntity
     myNewEntity->addObserver(this);
   }
-
+  /*
+  std::string encryptionName = details["encryption"];
+  this->notify(encryptionName);
+  if (details.contains("encryption")) {
+    std::string encryptionName = details["encryption"];
+    this->notify(encryptionName);
+  } else {
+      std::cout << "Warning: No 'encryption' key" << std::endl;
+  } */
   return myNewEntity;
 }
 
@@ -84,6 +108,21 @@ void SimulationModel::scheduleTrip(const JsonObject& details) {
     package->initDelivery(receiver);
     std::string strategyName = details["search"];
     package->setStrategyName(strategyName);
+
+    std::string encryptionName = details["encryption"];
+    this->notify(encryptionName);
+    encryptionType = encryptionName;
+
+    if (encryptionName != "None") {
+      PackageEncryptionDecorator* DecPackage =
+          new PackageEncryptionDecorator(package, encryptionName);
+      package = DecPackage;
+      scheduledDeliveries.push_back(package);
+      controller.sendEventToView("DeliveryScheduled", details);
+      return;
+    }
+
+    entityFactory.createEntity(details);
     scheduledDeliveries.push_back(package);
     controller.sendEventToView("DeliveryScheduled", details);
   }
@@ -132,3 +171,7 @@ void SimulationModel::notify(const std::string& message) const {
   details["message"] = message;
   this->controller.sendEventToView("Notification", details);
 }
+
+DroneObserver* SimulationModel::getAdversary() { return adversary; }
+
+std::string SimulationModel::getEncryption() { return encryptionType; }

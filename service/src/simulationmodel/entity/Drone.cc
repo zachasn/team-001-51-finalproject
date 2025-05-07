@@ -9,6 +9,8 @@
 #include "BfsStrategy.h"
 #include "DfsStrategy.h"
 #include "DijkstraStrategy.h"
+#include "DroneObserver.h"
+#include "DronePublisher.h"
 #include "Package.h"
 #include "SimulationModel.h"
 
@@ -25,6 +27,7 @@ Drone::~Drone() {
 }
 
 void Drone::getNextDelivery() {
+  addDroneObserver(model->getAdversary());
   if (model && model->scheduledDeliveries.size() > 0) {
     package = model->scheduledDeliveries.front();
     model->scheduledDeliveries.pop_front();
@@ -103,10 +106,13 @@ void Drone::update(double dt) {
     }
   } else if (toFinalDestination) {
     toFinalDestination->move(this, dt);
+    notifyDroneObserver(position);
 
     if (package && pickedUp) {
       package->setPosition(position);
       package->setDirection(direction);
+
+      notifyDroneObserver(position);
     }
 
     if (toFinalDestination->isCompleted()) {
@@ -129,4 +135,15 @@ void Drone::update(double dt) {
   if (position.z > 880) position.z = 880;
 
 }
-Package* Drone::getPackage() { return package; };
+Package* Drone::getPackage() const { return package; };
+
+void Drone::takePackage() {
+  package = nullptr;
+  toFinalDestination = nullptr;
+  available = true;
+  pickedUp = false;
+}
+
+void Drone::notifyDroneObserver(const Vector3& pos) {
+  this->getReaper()->notifyPosition(pos, this);
+}
