@@ -19,8 +19,6 @@ class WeatherControl : public IPublisher {
   // Helper functions
   double enforceBounds(double val);
   std::string generateWindDescription();
-  std::string determineDirection(double val, std::string first,
-                                 std::string second) const;
   void updateWind();
 
   // Member variables
