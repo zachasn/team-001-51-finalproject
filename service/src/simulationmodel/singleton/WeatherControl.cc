@@ -30,6 +30,7 @@ void WeatherControl::update(double dt) {
   if (windResetAccumulator >= windResetInterval) {
     wind = {0,0,0};
     windResetAccumulator = 0;
+    notifyObservers("The wind has settled.");
   }
 }
 
@@ -40,7 +41,7 @@ double WeatherControl::enforceBounds(double val) {
 }
 
 void WeatherControl::updateWind() {
-  double sigma = 3.0;
+  double sigma = 4.0;
 
   std::random_device rand;
   std::mt19937 fastGenerator(rand());
