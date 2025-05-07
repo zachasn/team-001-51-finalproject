@@ -10,32 +10,37 @@
 #include "IPublisher.h"
 
 class WeatherControl : public IPublisher {
- protected:
+ private:
   WeatherControl();
-
-  double enforceBounds(double val);
-  std::string generateMessage();
-  void updateWind();
+  ~WeatherControl() = default;
 
   static WeatherControl* weatherControl_;
-  double updateInterval;
+
+  // Helper functions
+  double enforceBounds(double val);
+  std::string generateWindDescription();
+  std::string determineDirection(double val, std::string first,
+                                 std::string second) const;
+  void updateWind();
+
+  // Member variables
   double timeAccumulator;
-  int notificationCounter;
-  int notificationCooldown;
+  double updateInterval;
+  int notificationAccumulator;
+  int notificationInterval;
   double windResetAccumulator;
   double windResetInterval;
   Vector3 wind;
 
  public:
   WeatherControl(WeatherControl& other) = delete;
-
   void operator=(const WeatherControl&) = delete;
 
   static WeatherControl* GetInstance();
 
   void update(double dt);
-  
-  Vector3 getWind();
+
+  Vector3 getWind() const;
 };
 
 #endif

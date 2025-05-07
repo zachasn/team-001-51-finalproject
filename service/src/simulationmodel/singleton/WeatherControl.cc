@@ -3,11 +3,11 @@
 WeatherControl::WeatherControl() {
   updateInterval = 1;
   timeAccumulator = 0;
-  notificationCounter = 0;
-  notificationCooldown = 20;
+  notificationAccumulator = 0;
+  notificationInterval = 20;
   windResetAccumulator = 0;
   windResetInterval = 600;
-  Vector3 wind = {0, 0, 0};
+  wind = {0, 0, 0};
 }
 
 WeatherControl* WeatherControl::weatherControl_ = nullptr;
@@ -20,15 +20,15 @@ WeatherControl* WeatherControl::GetInstance() {
 }
 
 void WeatherControl::update(double dt) {
-  this->timeAccumulator += dt;
-  this->windResetAccumulator += dt;
+  timeAccumulator += dt;
+  windResetAccumulator += dt;
   if (timeAccumulator >= updateInterval) {
-    this->updateWind();
+    updateWind();
     timeAccumulator = 0;
-    ++notificationCounter;
+    ++notificationAccumulator;
   }
   if (windResetAccumulator >= windResetInterval) {
-    wind = {0,0,0};
+    wind = {0, 0, 0};
     windResetAccumulator = 0;
     notifyObservers("The wind has settled.");
   }
@@ -54,42 +54,35 @@ void WeatherControl::updateWind() {
 
   for (int i = 0; i < 3; ++i) wind[i] = enforceBounds(wind[i]);
 
-  if (notificationCounter >= notificationCooldown) {
-    notifyObservers(generateMessage());
-    notificationCounter = 0;
+  if (notificationAccumulator >= notificationInterval) {
+    notifyObservers(generateWindDescription());
+    notificationAccumulator = 0;
   }
 }
 
-std::string WeatherControl::generateMessage() {
-  double vertical = wind.z;
-  double horizontal = wind.x;
-  // [(pixels per second) / (pixels per mile)] * (60 seconds per mile) = mph
-  double speed = (wind.magnitude() / 1625.0) * 60;
+std::string WeatherControl::determineDirection(double val, std::string first,
+                                               std::string second) const {
+  return (val >= 0) ? first : second;
+}
 
-  std::string v_direction;
-  std::string h_direction;
+std::string WeatherControl::generateWindDescription() {
+  // [[(pixels per second) / (pixels per mile)]
+  //    * (3600 seconds per hour)] / 10 scaling factor = mph
+  double speed = ((wind.magnitude() / 1625.0) * 360);
+
+  std::string v_direction = determineDirection(wind.z, "South", "North");
+  std::string h_direction = determineDirection(wind.x, "East", "West");
   std::string wind_direction;
 
-  if (vertical >= 0) {
-    v_direction = "South";
-  } else {
-    v_direction = "North";
-  }
-  if (horizontal >= 0) {
-    h_direction = "East";
-  } else {
-    h_direction = "West";
-  }
-
-  if (std::fabs(vertical) > 2 * std::fabs(horizontal)) {
+  if (std::fabs(wind.z) > 2 * std::fabs(wind.x)) {
     wind_direction = v_direction;
-  } else if (std::fabs(horizontal) > 2 * std::fabs(vertical)) {
+  } else if (std::fabs(wind.x) > 2 * std::fabs(wind.z)) {
     wind_direction = h_direction;
   } else {
     wind_direction = v_direction + "-" + h_direction;
   }
-  return "Current Wind: " + std::to_string((int)std::ceil(speed)) + " mph " +
-         wind_direction;
+  return "Current Wind: " + std::to_string(static_cast<int>(std::ceil(speed))) +
+         " mph " + wind_direction;
 }
 
-Vector3 WeatherControl::getWind() { return wind; }
+Vector3 WeatherControl::getWind() const { return wind; }
