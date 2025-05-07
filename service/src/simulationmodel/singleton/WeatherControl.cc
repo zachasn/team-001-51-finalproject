@@ -5,6 +5,8 @@ WeatherControl::WeatherControl() {
   timeAccumulator = 0;
   notificationCounter = 0;
   notificationCooldown = 20;
+  windResetAccumulator = 0;
+  windResetInterval = 600;
   Vector3 wind = {0, 0, 0};
 }
 
@@ -19,10 +21,15 @@ WeatherControl* WeatherControl::GetInstance() {
 
 void WeatherControl::update(double dt) {
   this->timeAccumulator += dt;
+  this->windResetAccumulator += dt;
   if (timeAccumulator >= updateInterval) {
     this->updateWind();
     timeAccumulator = 0;
     ++notificationCounter;
+  }
+  if (windResetAccumulator >= windResetInterval) {
+    wind = {0,0,0};
+    windResetAccumulator = 0;
   }
 }
 

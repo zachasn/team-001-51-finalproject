@@ -22,6 +22,8 @@ class WeatherControl : public IPublisher {
   double timeAccumulator;
   int notificationCounter;
   int notificationCooldown;
+  double windResetAccumulator;
+  double windResetInterval;
   Vector3 wind;
 
  public:
