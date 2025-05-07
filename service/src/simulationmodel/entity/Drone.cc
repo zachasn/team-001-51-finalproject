@@ -12,7 +12,12 @@
 #include "Package.h"
 #include "SimulationModel.h"
 
-Drone::Drone(const JsonObject& obj) : IEntity(obj) { available = true; }
+
+Drone::Drone(const JsonObject& obj) : IEntity(obj) { 
+  available = true; 
+  durability = 100;
+  weather = WeatherControl::GetInstance();
+}
 
 Drone::~Drone() {
   if (toPackage) delete toPackage;
@@ -56,7 +61,34 @@ void Drone::getNextDelivery() {
   }
 }
 
+double Drone::getDurability() {
+  return durability;
+}
+
+void Drone::updateDurability(double damage) {
+  durability -= damage;
+
+  if (durability <= 0) {
+    notifyObservers(name + " has broken and been removed from the simulation.");
+    model->scheduledDeliveries.push_back(package);
+    model->removeEntity(id);
+  }
+}
+
+void Drone::updateSpeedBasedOnDurability() {
+  // speed decreases linearly down to a minumum of half its original speed before drone breaks
+  speed = 30.0 * (0.5 + (durability / 100.0) * 0.5);
+}
+
+void Drone::applyWind(double dt) {
+  Vector3 scaledWind = weather->getWind() * (dt / 10);
+  position = position + scaledWind;
+}
+
 void Drone::update(double dt) {
+
+  applyWind(dt);
+
   if (available) getNextDelivery();
 
   if (toPackage) {
@@ -88,5 +120,13 @@ void Drone::update(double dt) {
       pickedUp = false;
     }
   }
+
+  // enforce map boundaries
+  if (position.x < -1470) position.x = -1470;
+  if (position.x > 1570) position.x = 1570;
+
+  if (position.z < -880) position.z = -880;
+  if (position.z > 880) position.z = 880;
+
 }
 Package* Drone::getPackage() { return package; };
