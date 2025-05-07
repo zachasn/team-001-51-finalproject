@@ -68,7 +68,7 @@ void Drone::updateDurability(double damage) {
   durability -= damage;
 
   if (durability <= 0) {
-    std::cout << "drone broke" << std::endl;
+    // std::cout << "drone broke" << std::endl;
     durability = 0;
     speed = 0;
   }

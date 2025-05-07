@@ -1,17 +1,22 @@
 #ifndef WEATHER_CONTROL_H_
 #define WEATHER_CONTROL_H_
 
-#include "../math/vector3.h"
 #include <iostream>
 #include <random>
+#include <string>
+#include <cmath>
 
-class WeatherControl {
+#include "../math/vector3.h"
+#include "IPublisher.h"
+
+class WeatherControl : public IPublisher {
  protected:
   WeatherControl();
 
   static WeatherControl* weatherControl_;
   double updateInterval;
   double timeAccumulator;
+  int notificationCooldown;
   Vector3 wind;
 
  public:
@@ -23,8 +28,7 @@ class WeatherControl {
 
   void update(double dt);
   void updateWind();
-  Vector3 getWind() {return wind;}
-
+  Vector3 getWind() { return wind; }
 };
 
 #endif

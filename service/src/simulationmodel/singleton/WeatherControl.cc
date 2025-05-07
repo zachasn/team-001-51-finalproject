@@ -1,9 +1,10 @@
 #include "WeatherControl.h"
 
 WeatherControl::WeatherControl() {
-    updateInterval = 1;
-    timeAccumulator = 0;
-    Vector3 wind = {0,0,0};
+  updateInterval = 1;
+  timeAccumulator = 0;
+  notificationCooldown = 0;
+  Vector3 wind = {0, 0, 0};
 }
 
 WeatherControl* WeatherControl::weatherControl_ = nullptr;
@@ -16,11 +17,12 @@ WeatherControl* WeatherControl::GetInstance() {
 }
 
 void WeatherControl::update(double dt) {
-    this->timeAccumulator += dt;
-    if (timeAccumulator >= updateInterval) {
-        this->updateWind();
-        timeAccumulator = 0;
-    }
+  this->timeAccumulator += dt;
+  if (timeAccumulator >= updateInterval) {
+    this->updateWind();
+    timeAccumulator = 0;
+    ++notificationCooldown;
+  }
 }
 
 double enforce_bounds(double val) {
@@ -30,7 +32,6 @@ double enforce_bounds(double val) {
 }
 
 void WeatherControl::updateWind() {
-
   double sigma = 3.0;
 
   std::random_device rand;
@@ -41,8 +42,39 @@ void WeatherControl::updateWind() {
 
   wind = wind + delta_wind;
 
-  for (int i = 0; i < 3; ++i)
-    wind[i] = enforce_bounds(wind[i]);
+  for (int i = 0; i < 3; ++i) wind[i] = enforce_bounds(wind[i]);
 
-  std::cout << "current wind vector: " << wind << std::endl;
+  if (notificationCooldown >= 20) {
+    double vertical = wind.z;
+    double horizontal = wind.x;
+    double speed = (wind.magnitude() / 1625.0) * 60;
+
+    std::string v_direction;
+    std::string h_direction;
+    std::string wind_direction;
+
+    if (vertical >= 0) {
+      v_direction = "South";
+    } else {
+      v_direction = "North";
+    }
+    if (horizontal >= 0) {
+      h_direction = "East";
+    } else {
+      h_direction = "West";
+    }
+
+    if (std::fabs(vertical) > 2 * std::fabs(horizontal)) {
+      wind_direction = v_direction;
+    } else if (std::fabs(horizontal) > 2 * std::fabs(vertical)) {
+      wind_direction = h_direction;
+    } else {
+      wind_direction = v_direction + "-" + h_direction;
+    }
+
+    notifyObservers("Current Wind: " + std::to_string((int)std::ceil(speed)) +
+                    " mph " + wind_direction);
+    notificationCooldown = 0;
+    
+  }
 }
