@@ -9,7 +9,7 @@ DroneDamageDecorator::DroneDamageDecorator(Drone* d) : DroneDecorator(d) {
   else {
     throw std::invalid_argument("Drone is not properly wrapped");
   }
-  damageFactor = 0.002;
+  damageFactor = 0.001;
   timeAccumulator = 0;
 }
 

@@ -11,11 +11,12 @@
 #include "DijkstraStrategy.h"
 #include "Package.h"
 #include "SimulationModel.h"
-#include "WeatherControl.h"
+
 
 Drone::Drone(const JsonObject& obj) : IEntity(obj) { 
   available = true; 
-  durability = 100; 
+  durability = 100;
+  weather = WeatherControl::GetInstance();
 }
 
 Drone::~Drone() {
@@ -76,15 +77,17 @@ void Drone::updateDurability(double damage) {
 
 void Drone::updateSpeedBasedOnDurability() {
   // speed decreases linearly down to a minumum of half its original speed before drone breaks
-  speed = 30 * (durability / 200);
+  speed = 30.0 * (0.5 + (durability / 100.0) * 0.5);
+}
+
+void Drone::applyWind(double dt) {
+  Vector3 scaledWind = weather->getWind() * (dt / 10);
+  position = position + scaledWind;
 }
 
 void Drone::update(double dt) {
 
-  // Apply effect of wind to drone
-  WeatherControl* w = WeatherControl::GetInstance();
-  Vector3 scaledWind = w->getWind() * (dt / 10);
-  position = position + scaledWind;
+  applyWind(dt);
 
   if (available) getNextDelivery();
 

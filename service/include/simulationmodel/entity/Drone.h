@@ -6,6 +6,7 @@
 #include "IEntity.h"
 #include "IStrategy.h"
 #include "math/vector3.h"
+#include "WeatherControl.h"
 
 class Package;
 
@@ -57,6 +58,12 @@ class Drone : public IEntity {
   void updateSpeedBasedOnDurability();
 
   /**
+   * @brief applies the effect of the wind disturbance to the drones position
+   * @param dt Delta time
+   */
+  void applyWind(double dt);
+
+  /**
    * @brief Updates the drone's position
    * @param dt Delta time
    */
@@ -82,6 +89,7 @@ class Drone : public IEntity {
   Package* package = nullptr;
   IStrategy* toPackage = nullptr;
   IStrategy* toFinalDestination = nullptr;
+  WeatherControl* weather;
 };
 
 #endif
