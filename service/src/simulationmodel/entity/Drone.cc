@@ -7,6 +7,7 @@
 #include "AstarStrategy.h"
 #include "BeelineStrategy.h"
 #include "BfsStrategy.h"
+#include "DataManager.h"
 #include "DfsStrategy.h"
 #include "DijkstraStrategy.h"
 #include "DroneObserver.h"
@@ -14,9 +15,9 @@
 #include "Package.h"
 #include "SimulationModel.h"
 
-
 Drone::Drone(const JsonObject& obj) : IEntity(obj) { 
   available = true; 
+  this->lastPosition = this->position;
   durability = 100;
   weather = WeatherControl::GetInstance();
 }
@@ -90,6 +91,8 @@ void Drone::applyWind(double dt) {
 
 void Drone::update(double dt) {
 
+  Vector3 currenPosition = getPosition();
+
   applyWind(dt);
 
   if (available) getNextDelivery();
@@ -118,6 +121,8 @@ void Drone::update(double dt) {
     if (toFinalDestination->isCompleted()) {
       std::string message = getName() + " dropped off: " + package->getName();
       notifyObservers(message);
+      // increment number of packages this drone delivered
+      DataManager::getInstance().packagesDelivered(getId());
       delete toFinalDestination;
       toFinalDestination = nullptr;
       package->handOff();
@@ -125,6 +130,14 @@ void Drone::update(double dt) {
       available = true;
       pickedUp = false;
     }
+  }
+
+  double diff = this->lastPosition.dist(this->position);
+  this->distanceTraveled += diff;
+  this->lastPosition = this->position;
+  if (this->distanceTraveled > 1625.0) {
+    DataManager::getInstance().distanceTraveled(getId());
+    this->distanceTraveled = 0;
   }
 
   // enforce map boundaries

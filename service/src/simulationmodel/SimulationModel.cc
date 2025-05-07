@@ -1,5 +1,6 @@
 #include "SimulationModel.h"
 
+#include "DataManager.h"
 #include "DroneFactory.h"
 #include "HelicopterFactory.h"
 #include "HumanFactory.h"
@@ -7,8 +8,6 @@
 #include "PackageFactory.h"
 #include "RobotFactory.h"
 #include "SkyReaper.h"
-
-
 
 SimulationModel::SimulationModel(IController& controller)
     : controller(controller) {
@@ -32,9 +31,12 @@ SimulationModel::~SimulationModel() {
 IEntity* SimulationModel::createEntity(const JsonObject& entity) {
   std::string name = entity["name"];
   JsonArray position = entity["position"];
+  std::string type = entity["type"];
+  std::cout << "type: " << type << std::endl;
   std::cout << name << ": " << position << std::endl;
 
   IEntity* myNewEntity = nullptr;
+
   std::cout << name << std::endl;
   if (entity.contains("encryption")) {
     std::string c = entity["encryption"];
@@ -50,6 +52,12 @@ IEntity* SimulationModel::createEntity(const JsonObject& entity) {
     entities[myNewEntity->getId()] = myNewEntity;
     myNewEntity->addObserver(this);
   } else if (myNewEntity = entityFactory.createEntity(entity)) {
+    
+    // ignore package and robot entities
+    if (type != "package" && type != "robot") {
+      DataManager::getInstance().addEntity(myNewEntity->getId(), name, type);
+    }
+
     // Call AddEntity to add it to the view
     myNewEntity->linkModel(this);
     controller.addEntity(*myNewEntity);

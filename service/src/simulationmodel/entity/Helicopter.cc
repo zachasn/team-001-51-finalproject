@@ -5,6 +5,7 @@
 #include <limits>
 
 #include "BeelineStrategy.h"
+#include "DataManager.h"
 
 Helicopter::Helicopter(const JsonObject& obj) : IEntity(obj) {
   this->lastPosition = this->position;
@@ -33,7 +34,7 @@ void Helicopter::update(double dt) {
       std::string message = this->getName() + " has traveled " +
                             std::to_string(++mileCounter) + " miles";
       this->notifyObservers(message);
-
+      DataManager::getInstance().distanceTraveled(getId());
       // Reset distance traveled this mile
       this->distanceTraveled = 0;
     }

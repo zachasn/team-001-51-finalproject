@@ -95,6 +95,9 @@ class Drone : public IEntity, public DronePublisher {
   Package* package = nullptr;
   IStrategy* toPackage = nullptr;
   IStrategy* toFinalDestination = nullptr;
+  // to calculate distance traveled by drone when its delivering a package
+  double distanceTraveled = 0;
+  Vector3 lastPosition;
   WeatherControl* weather;
 };
 

@@ -20,6 +20,8 @@ class Human : public IEntity {
   static Vector3 kellerPosition;
   IStrategy* movement = nullptr;
   bool atKeller = false;
+  double distanceTraveled = 0;
+  Vector3 lastPosition;
 };
 
 #endif
