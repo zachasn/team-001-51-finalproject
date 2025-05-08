@@ -21,6 +21,15 @@ const exportDataButton = $("#export-data")[0];
 const addHumanButton = $("#add-human")[0];
 const addDroneButton = $("#add-drone")[0];
 const deliveryPopup = $("#delivery-popup");
+const scheduleButton = $("#schedule-button")[0]; 
+const scheduleInput = $("#schedule-input"); 
+const scheduleSubmit = $("#schedule-submit")[0]; 
+const scheduleCancel = $("#schedule-cancel")[0]; 
+const scheduleName = $("#schedule-name"); 
+const searchStrategy = $("#search-strategy"); 
+const encryptionStrategy = $("#encryption-strategy"); 
+const priorityStrategy = $("#priority-strategy"); 
+const scheduleError = $("#schedule-error"); 
 
 const sceneFile = "scenes/umn.json";
 const clock = new THREE.Clock();
@@ -81,6 +90,48 @@ addDroneButton.onclick = () => {
     color: droneColors[randInt(0, droneColors.length - 1)],
   });
   droneID += 1;
+};
+
+scheduleButton.onclick = () => {
+  scheduleInput.show();
+};
+
+scheduleCancel.onclick = () => {
+  scheduleInput.hide();
+  scheduleName.val("");
+  scheduleError.text("");
+};
+
+scheduleSubmit.onclick = () => {
+  const name = (scheduleName.val() as string).trim();
+  if (name.length == 0) {
+    scheduleError.text("Error: Please enter a name");
+    return;
+  }
+  sendCommand("CreateEntity", {
+    type: "package",
+    name: name + "_package",
+    position: [498.292, 270, -228.623],
+    scale: [0.1, 0.1, 0.1],
+    rotation: [0, 0, 0, 0],
+    direction: [1, 0, 0],
+    speed: 0.0,
+    radius: 1.0,
+    start: 0.0,
+    duration: 0.0,
+    offset: [0, 0, 0],
+    priority: parseInt(priorityStrategy.val() as string), 
+  });
+  sendCommand("ScheduleTrip", {
+    name: name,
+    start: [498.292, 270, -228.623],
+    end: [700, 290, 400],
+    search: searchStrategy.val(),
+    encryption: encryptionStrategy.val(),
+  });
+  scheduleInput.hide();
+  scheduleName.val("");
+  scheduleError.text("");
 };
 
 window.onresize = () => {

@@ -17,6 +17,7 @@
 
 Drone::Drone(const JsonObject& obj) : IEntity(obj) {
   available = true;
+
   this->lastPosition = this->position;
   durability = 100;
   weather = WeatherControl::GetInstance();
