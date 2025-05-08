@@ -9,6 +9,7 @@
 #include "IStrategy.h"
 #include "math/vector3.h"
 #include "WeatherControl.h"
+#include "DataManager.h"
 
 class Package;
 

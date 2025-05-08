@@ -15,9 +15,9 @@
 #include "Package.h"
 #include "SimulationModel.h"
 
+Drone::Drone(const JsonObject& obj) : IEntity(obj) {
+  available = true;
 
-Drone::Drone(const JsonObject& obj) : IEntity(obj) { 
-  available = true; 
   this->lastPosition = this->position;
   durability = 100;
   weather = WeatherControl::GetInstance();
@@ -72,7 +72,7 @@ double Drone::getDurability() {
 
 void Drone::updateDurability(double damage) {
   durability -= damage;
-
+  DataManager::getInstance().setCondition(id, durability);
   if (durability <= 0) {
     notifyObservers(name + " has broken and been removed from the simulation.");
     model->scheduledDeliveries.push_back(package);
@@ -122,8 +122,7 @@ void Drone::update(double dt) {
     if (toFinalDestination->isCompleted()) {
       std::string message = getName() + " dropped off: " + package->getName();
       notifyObservers(message);
-      // increment number of packages this drone delivered
-      DataManager::getInstance().packagesDelivered(getId());
+      DataManager::getInstance().packagesDelivered(id);
       delete toFinalDestination;
       toFinalDestination = nullptr;
       package->handOff();
@@ -137,7 +136,7 @@ void Drone::update(double dt) {
   this->distanceTraveled += diff;
   this->lastPosition = this->position;
   if (this->distanceTraveled > 1625.0) {
-    DataManager::getInstance().distanceTraveled(getId());
+    DataManager::getInstance().distanceTraveled(id);
     this->distanceTraveled = 0;
   }
 

@@ -51,6 +51,7 @@ void SkyReaper::interceptPackage() {
     Package* p2 = target->getPackage();
     if (p2 == nullptr) {
       std::cout << "target package stolen" << std::endl;
+      DataManager::getInstance().lostPackages(target->getId());
     }
     std::string msg = "Successful in cracking package";
     notifyObservers(msg);
