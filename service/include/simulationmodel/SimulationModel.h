@@ -13,7 +13,11 @@
 #include "IEntity.h"
 #include "IObserver.h"
 #include "Robot.h"
+#include "ShippingQueue.h"
+#include "TripScheduler.h"
+#include "NotificationSystem.h"
 #include "WeatherControl.h"
+
 
 //--------------------  Model ----------------------------
 
@@ -28,7 +32,7 @@ class SimulationModel : public IObserver {
   /**
    * @brief Default constructor that create the SimulationModel object
    **/
-  SimulationModel(IController& controller);
+  SimulationModel(IController& controller, NotificationSystem* notifier);
 
   /**
    * @brief Destructor
@@ -42,10 +46,10 @@ class SimulationModel : public IObserver {
   void setGraph(const routing::Graph* graph);
 
   /**
-   * @brief Creates a new simulation entity
-   * @param entity Type JsonObject contain the entity's reference to decide
-   *which entity to create
-   **/
+   * @brief Creates a new simulation entity with priority support.
+   * @param entity JSON object with entity data.
+   * @return Pointer to created entity, or nullptr if invalid.
+   */
   IEntity* createEntity(const JsonObject& entity);
 
   /**
@@ -56,10 +60,9 @@ class SimulationModel : public IObserver {
   void removeEntity(int id);
 
   /**
-   * @brief Schedule a trip for an object in the scene
-   * @param detail Type JsonObject contain the entity's reference to schedule
-   *the detail of the trip being scheduled
-   **/
+   * @brief Schedule a trip with priority queue.
+   * @param details JSON object with trip details.
+   */
   void scheduleTrip(const JsonObject& details);
 
   /**
@@ -99,6 +102,9 @@ class SimulationModel : public IObserver {
   CompositeFactory entityFactory;
   DroneObserver* adversary = nullptr;
   std::string encryptionType;
+  TripScheduler* scheduler_;
+  ShippingQueue* queue_;
+  NotificationSystem* notifier_;
 };
 
 #endif

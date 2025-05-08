@@ -99,6 +99,7 @@ class Drone : public IEntity, public DronePublisher {
   double distanceTraveled = 0;
   Vector3 lastPosition;
   WeatherControl* weather;
+
 };
 
 #endif
