@@ -4,9 +4,9 @@
 #include <vector>
 
 #include "ShippingQueue.h"
-#include "simulationmodel/entity/Package.h"
-#include "simulationmodel/entity/Robot.h"
-#include "simulationmodel/util/NotificationSystem.h"
+#include "Package.h"
+#include "Robot.h"
+#include "NotificationSystem.h"
 
 /**
  * @brief Schedules trips for robots to deliver packages.

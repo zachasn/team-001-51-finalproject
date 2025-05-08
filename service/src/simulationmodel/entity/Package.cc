@@ -2,6 +2,9 @@
 
 #include "Robot.h"
 
+// Static member initialization
+int Package::next_index_ = 0;
+
 Package::Package(const JsonObject& obj)
     : IEntity(obj),
       priority_context_(new PriorityShippingContext()),
@@ -18,6 +21,8 @@ Package::Package(const JsonObject& obj)
     name = static_cast<std::string>(obj["name"]);
   }
 }
+
+Package::~Package() { delete priority_context_; }
 
 Vector3 Package::getDestination() const { return destination; }
 
@@ -44,4 +49,33 @@ void Package::handOff() {
   if (owner) {
     owner->receive(this);
   }
+}
+
+void Package::linkModel(
+    SimulationModel* model) {  // CHANGE: ADDED TO MATCH IEntity
+  this->model = model;
+}
+
+bool Package::setPriority(int priority, NotificationSystem* notifier) {
+  // Check if package is not picked up or delivered
+  if (!is_picked_up_ && !is_delivered_) {
+    priority_context_->changeState(priority, notifier,
+                                   this);  // CHANGE: ADDED this FOR changeState
+    return true;
+  }
+  // Notify error if notifier exists
+  if (notifier) {
+    std::string message = "Error: Cannot change priority for package ";
+    message = message + std::to_string(getId()) + " after pickup or delivery";
+    notifier->publish(message);
+  }
+  return false;  // CHANGE: MOVED RETURN OUTSIDE if
+}
+
+int Package::getPriorityLevel() const {
+  return priority_context_->getPriorityLevel();
+}
+
+std::string Package::getPriorityName() const {
+  return priority_context_->getName();
 }

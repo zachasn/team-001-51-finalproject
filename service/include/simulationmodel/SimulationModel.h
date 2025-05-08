@@ -15,7 +15,7 @@
 #include "Robot.h"
 #include "ShippingQueue.h"
 #include "TripScheduler.h"
-#include "simulationmodel/util/NotificationSystem.h"
+#include "NotificationSystem.h"
 
 //--------------------  Model ----------------------------
 

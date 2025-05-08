@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "Package.h"
-#include "simulationmodel/util/NotificationSystem.h"
+#include "NotificationSystem.h"
 
 /**
  * @brief Manages a sorted queue of packages by priority with FIFO ordering.

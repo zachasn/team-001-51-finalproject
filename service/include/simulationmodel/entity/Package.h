@@ -5,13 +5,14 @@
 #include <vector>
 
 #include "IEntity.h"
+#include "NotificationSystem.h"
+#include "PriorityShippingContext.h"
 #include "math/vector3.h"
-#include "simulationmodel/entity/PriorityShippingContext.h"
-#include "simulationmodel/util/NotificationSystem.h"
 #include "util/json.h"
 
 class Robot;
 class SimulationModel;
+class PriorityShippingContext;
 /**
  * @brief Represents a package in the drone simulation with priority state
  * support.
@@ -28,16 +29,13 @@ class Package : public IEntity {
   /**
    * @brief Destructor to clean up priority context.
    */
-  virtual ~Package() { delete priority_context_; }
+  virtual ~Package();
 
   /**
    * @brief Link this package to the simulation model.
    * @param model Pointer to the SimulationModel.
    */
-  virtual void linkModel(
-      SimulationModel* model) {  // CHANGE: ADDED TO MATCH IEntity
-    this->model = model;
-  }
+  virtual void linkModel(SimulationModel* model);
 
   /**
    * @brief Gets the Package's destination.
@@ -93,21 +91,7 @@ class Package : public IEntity {
    * @param notifier Pointer to NotificationSystem for updates.
    * @return True if priority was changed, false if not allowed.
    */
-  virtual bool setPriority(int priority, NotificationSystem* notifier) {
-    // Check if package is not picked up or delivered
-    if (!is_picked_up_ && !is_delivered_) {
-      priority_context_->changeState(
-          priority, notifier, this);  // CHANGE: ADDED this FOR changeState
-      return true;
-    }
-    // Notify error if notifier exists
-    if (notifier) {
-      std::string message = "Error: Cannot change priority for package ";
-      message = message + std::to_string(getId()) + " after pickup or delivery";
-      notifier->publish(message);
-    }
-    return false;  // CHANGE: MOVED RETURN OUTSIDE if
-  }
+  virtual bool setPriority(int priority, NotificationSystem* notifier);
 
   /**
    * @brief Mark package as picked up by a drone.
@@ -124,17 +108,13 @@ class Package : public IEntity {
    * @return Integer priority level (0 for No Rush, 1 for Standard, 2 for
    * Expedited).
    */
-  virtual int getPriorityLevel() const {
-    return priority_context_->getPriorityLevel();
-  }
+  virtual int getPriorityLevel() const;
 
   /**
    * @brief Get the current priority name.
    * @return String name (e.g., "Expedited").
    */
-  virtual std::string getPriorityName() const {
-    return priority_context_->getName();
-  }
+  virtual std::string getPriorityName() const;
 
   /**
    * @brief Get the order index for FIFO sorting.
@@ -169,8 +149,5 @@ class Package : public IEntity {
   int order_index_;                            // For FIFO sorting
   static int next_index_;                      // Tracks next index
 };
-
-// Static member initialization
-int Package::next_index_ = 0;
 
 #endif  // PACKAGE_H

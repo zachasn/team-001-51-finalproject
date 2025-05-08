@@ -1,4 +1,4 @@
-#include "simulationmodel/util/NotificationSystem.h"
+#include "NotificationSystem.h"
 
 #include <iostream>
 

@@ -1,4 +1,4 @@
-#include "simulationmodel/TripScheduler.h"
+#include "TripScheduler.h"
 
 TripScheduler::TripScheduler(NotificationSystem* notifier) {
   notifier_ = notifier;
