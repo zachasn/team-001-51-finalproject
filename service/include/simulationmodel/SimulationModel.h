@@ -16,6 +16,8 @@
 #include "ShippingQueue.h"
 #include "TripScheduler.h"
 #include "NotificationSystem.h"
+#include "WeatherControl.h"
+
 
 //--------------------  Model ----------------------------
 
@@ -92,6 +94,7 @@ class SimulationModel : public IObserver {
 
  protected:
   IController& controller;
+  WeatherControl* weather;
   std::map<int, IEntity*> entities;
   std::set<int> removed;
   void removeFromSim(int id);

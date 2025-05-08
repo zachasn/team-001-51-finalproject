@@ -7,6 +7,8 @@
 #include "DronePublisher.h"
 #include "IEntity.h"
 #include "IStrategy.h"
+#include "math/vector3.h"
+#include "WeatherControl.h"
 
 class Package;
 
@@ -42,6 +44,28 @@ class Drone : public IEntity, public DronePublisher {
   Package* getPackage() const;
 
   /**
+   * @brief Returns the drones current durability level
+   */
+  double getDurability();
+
+  /**
+   * @brief updates the drones current durability level
+   * @param damage the amount of damage to inflict on current drone durability
+   */
+  void updateDurability(double damage);
+
+  /**
+   * @brief updates the drones movement speed based on its current durability
+   */
+  void updateSpeedBasedOnDurability();
+
+  /**
+   * @brief applies the effect of the wind disturbance to the drones position
+   * @param dt Delta time
+   */
+  void applyWind(double dt);
+
+  /**
    * @brief Updates the drone's position
    * @param dt Delta time
    */
@@ -67,12 +91,15 @@ class Drone : public IEntity, public DronePublisher {
   bool pickedUp = false;
 
  private:
+  double durability;
   Package* package = nullptr;
   IStrategy* toPackage = nullptr;
   IStrategy* toFinalDestination = nullptr;
   // to calculate distance traveled by drone when its delivering a package
   double distanceTraveled = 0;
   Vector3 lastPosition;
+  WeatherControl* weather;
+
 };
 
 #endif

@@ -8,15 +8,15 @@
 class PackageDecorator : public IEntityDecorator<Package> {
  public:
   PackageDecorator(Package* p) : IEntityDecorator(p) {}
-  virtual Vector3 getDestination() { return sub->getDestination(); };
-  virtual std::string getStrategyName() { return sub->getStrategyName(); };
-  virtual Robot* getOwner() { return sub->getOwner(); };
-  virtual bool requiresDelivery() { return sub->requiresDelivery(); };
-  virtual void setStrategyName(std::string strategyName_) {
+  virtual Vector3 getDestination() const { return sub->getDestination(); };
+  virtual std::string getStrategyName() const { return sub->getStrategyName(); };
+  virtual Robot* getOwner() const { return sub->getOwner(); };
+  virtual bool requiresDelivery() const { return sub->requiresDelivery(); };
+  virtual void setStrategyName(std::string strategyName_) override {
     sub->setStrategyName(strategyName_);
   };
-  virtual void initDelivery(Robot* owner) { sub->initDelivery(owner); };
-  virtual void handOff() { sub->handOff(); };
+  virtual void initDelivery(Robot* owner) override { sub->initDelivery(owner); };
+  virtual void handOff() override { sub->handOff(); };
 };
 
 #endif

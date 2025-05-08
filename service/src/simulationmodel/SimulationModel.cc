@@ -16,8 +16,12 @@ SimulationModel::SimulationModel(IController& controller,
   entityFactory.addFactory(new RobotFactory());
   entityFactory.addFactory(new HumanFactory());
   entityFactory.addFactory(new HelicopterFactory());
+      
   scheduler_ = new TripScheduler(notifier_);
   queue_ = new ShippingQueue();
+      
+  weather = WeatherControl::GetInstance();
+  weather->addObserver(this);
 }
 
 SimulationModel::~SimulationModel() {
@@ -33,15 +37,23 @@ SimulationModel::~SimulationModel() {
 IEntity* SimulationModel::createEntity(const JsonObject& entity) {
   std::string name = entity["name"];
   JsonArray position = entity["position"];
+
+  // Nayak's version start
   std::string type = "";
   if (entity.contains("type")) {
     type = static_cast<std::string>(entity["type"]);
     ;
   }
+  // Nayak's version end
+
+  // previously was
+  // std::string type = entity["type"];
+
   std::cout << "type: " << type << std::endl;
   std::cout << name << ": " << position << std::endl;
 
   IEntity* myNewEntity = nullptr;
+
   std::cout << name << std::endl;
   if (entity.contains("encryption")) {
     std::string c = entity["encryption"];
@@ -57,10 +69,14 @@ IEntity* SimulationModel::createEntity(const JsonObject& entity) {
     entities[myNewEntity->getId()] = myNewEntity;
     myNewEntity->addObserver(this);
   } else if (myNewEntity = entityFactory.createEntity(entity)) {
+
     // ignore package and robot entities
     if (type != "package" && type != "robot") {
       DataManager::getInstance().addEntity(myNewEntity->getId(), name, type);
     }
+
+  // Nayak's addition start
+  
     // Hnadling package priority
     if (type == "package") {  // CHANGE: ADDED FOR PRIORITY
       Package* package = dynamic_cast<Package*>(myNewEntity);
@@ -75,6 +91,9 @@ IEntity* SimulationModel::createEntity(const JsonObject& entity) {
         }
       }
     }
+    
+  // Nayak's addition end
+
     // Call AddEntity to add it to the view
     myNewEntity->linkModel(this);
     controller.addEntity(*myNewEntity);
@@ -199,6 +218,7 @@ void SimulationModel::update(double dt) {
     removeFromSim(id);
   }
   removed.clear();
+  weather->update(dt);
 }
 
 void SimulationModel::stop(void) {}
