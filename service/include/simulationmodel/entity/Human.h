@@ -3,6 +3,7 @@
 
 #include "IEntity.h"
 #include "IStrategy.h"
+#include "DataManager.h"
 
 class Human : public IEntity {
  public:
