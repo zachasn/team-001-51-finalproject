@@ -6,6 +6,7 @@
 
 #include "BfsStrategy.h"
 #include "BreadthFirstSearch.h"
+#include "DataManager.h"
 #include "DronePublisher.h"
 #include "IEntity.h"
 #include "Package.h"
@@ -51,6 +52,7 @@ void SkyReaper::interceptPackage() {
     Package* p2 = target->getPackage();
     if (p2 == nullptr) {
       std::cout << "target package stolen" << std::endl;
+      DataManager::getInstance().lostPackages(target->getId());
     }
     std::string msg = "Successful in cracking package";
     notifyObservers(msg);

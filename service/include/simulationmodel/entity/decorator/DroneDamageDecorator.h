@@ -2,8 +2,8 @@
 #define DRONE_DAMAGE_DECORATOR_H
 
 #include "Drone.h"
-#include "DroneDecorator.h"
 #include "DroneColorDecorator.h"
+#include "DroneDecorator.h"
 #include "Package.h"
 
 class DroneDamageDecorator : public DroneDecorator {

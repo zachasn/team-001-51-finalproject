@@ -28,7 +28,7 @@ void WeatherControl::update(double dt) {
     ++notificationCounter;
   }
   if (windResetAccumulator >= windResetInterval) {
-    wind = {0,0,0};
+    wind = {0, 0, 0};
     windResetAccumulator = 0;
   }
 }

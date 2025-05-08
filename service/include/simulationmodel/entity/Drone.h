@@ -7,7 +7,6 @@
 #include "DronePublisher.h"
 #include "IEntity.h"
 #include "IStrategy.h"
-#include "math/vector3.h"
 #include "WeatherControl.h"
 
 class Package;
@@ -95,7 +94,6 @@ class Drone : public IEntity, public DronePublisher {
   Package* package = nullptr;
   IStrategy* toPackage = nullptr;
   IStrategy* toFinalDestination = nullptr;
-  // to calculate distance traveled by drone when its delivering a package
   double distanceTraveled = 0;
   Vector3 lastPosition;
   WeatherControl* weather;

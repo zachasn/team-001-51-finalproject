@@ -34,7 +34,7 @@ class WeatherControl : public IPublisher {
   static WeatherControl* GetInstance();
 
   void update(double dt);
-  
+
   Vector3 getWind();
 };
 

@@ -34,7 +34,7 @@ void Helicopter::update(double dt) {
       std::string message = this->getName() + " has traveled " +
                             std::to_string(++mileCounter) + " miles";
       this->notifyObservers(message);
-      DataManager::getInstance().distanceTraveled(getId());
+      DataManager::getInstance().distanceTraveled(id);
       // Reset distance traveled this mile
       this->distanceTraveled = 0;
     }

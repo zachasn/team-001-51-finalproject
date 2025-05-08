@@ -40,7 +40,7 @@ void Human::update(double dt) {
   this->distanceTraveled += diff;
   this->lastPosition = this->position;
   if (this->distanceTraveled > 1625.0) {
-    DataManager::getInstance().distanceTraveled(getId());
+    DataManager::getInstance().distanceTraveled(id);
     this->distanceTraveled = 0;
   }
 }

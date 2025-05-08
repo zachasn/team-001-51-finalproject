@@ -52,7 +52,6 @@ IEntity* SimulationModel::createEntity(const JsonObject& entity) {
     entities[myNewEntity->getId()] = myNewEntity;
     myNewEntity->addObserver(this);
   } else if (myNewEntity = entityFactory.createEntity(entity)) {
-    
     // ignore package and robot entities
     if (type != "package" && type != "robot") {
       DataManager::getInstance().addEntity(myNewEntity->getId(), name, type);
