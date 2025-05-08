@@ -34,7 +34,7 @@ void WeatherControl::update(double dt) {
   }
 }
 
-double WeatherControl::enforceBounds(double val) {
+double WeatherControl::enforceBound200(double val) {
   if (val < -200) return -200;
   if (val > 200) return 200;
   return val;
@@ -52,7 +52,7 @@ void WeatherControl::updateWind() {
 
   wind = wind + delta_wind;
 
-  for (int i = 0; i < 3; ++i) wind[i] = enforceBounds(wind[i]);
+  for (int i = 0; i < 3; ++i) wind[i] = enforceBound200(wind[i]);
 
   if (notificationAccumulator >= notificationInterval) {
     notifyObservers(generateWindDescription());
