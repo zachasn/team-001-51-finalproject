@@ -47,6 +47,13 @@
             </select>
           </div>
           <!-- Div for Package Encryption type here -->
+          <div>Priority: 
+            <select id="priority-strategy">
+              <option value="0">No Rush</option>
+              <option value="1">Standard</option>
+              <option value="2">Expedited</option>
+            </select>
+          </div>
           <br><button id="schedule-submit">Submit</button>
           <button id="schedule-cancel">Cancel</button><br>
           <div id="schedule-error"></div>
@@ -55,6 +62,7 @@
           <button type="button" id="add-human">Add Human</button><br>
           <button type="button" id="add-drone">Add Drone</button><br>
           <button type="button" id="stop-simulation">Stop Simulation</button>
+            <button type="=button" id="export-data">Export Data</button>
         </div>
       </div>
     </div>

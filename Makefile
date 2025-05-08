@@ -1,6 +1,6 @@
 # This Makefile provides you with quick access to usefule commands
 
-PORT = 8081
+PORT = 1677
 BUILD_DIR = build
 TRANSITE_EXE = $(BUILD_DIR)/bin/transit_service
 
@@ -45,4 +45,4 @@ docs:
 
 # runs clang-format
 lint:
-	clang-format -style=Google -i $(shell find ./service/include/simulationmodel/ ./service/src/simulationmodel/ -type f -name '*.cc' -o -name '*.h') 
+	clang-format -style=Google -i $(shell find ./service/include/simulationmodel/ ./service/src/simulationmodel/ -type f -name '*.cc' -o -name '*.h')
