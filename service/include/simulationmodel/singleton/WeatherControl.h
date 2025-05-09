@@ -102,3 +102,5 @@ class WeatherControl : public IPublisher {
 };
 
 #endif
+
+// Generative AI model: GPT-4o was utilized to assist in writing this Doxygen documentation
