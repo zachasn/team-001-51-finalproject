@@ -51,16 +51,16 @@
     "params": {
       "type": "skyreaper",
       "name": "SkyReaper",
-      "mesh": "assets/model/drone.glb",
+      "mesh": "assets/model/red_drone.glb",
       "position": [
         -498.292,
         270,
         228.623
       ],
       "scale": [
-        0.3,
-        0.3,
-        0.3
+        0.2,
+        0.2,
+        0.2
       ],
       "rotation": [
         0,
