@@ -7,7 +7,33 @@
 
 # Overview
 
+This project aimed to extend the "GOPHER Delivery Simulation System". The base code 
+provided a simulation of various entities moving around and interacting within the University 
+of Minnesota Twin Cities Campus. It supported adding additional human or drone entities
+to the simulation during runtime, and also supported the scheduling of deliveries of packages 
+by drones to robots. A simple front-end UI acts as a façade to mask the more complicated 
+backend operations, and facilitate the user experience. 
+
+The individual extensions to this system which we developed were built upon well-known and 
+tested design patterns. To extend the functionality of this system, we built a "Data Collection
+Manager" class which acts to collect a variety of relevant statistics throughout each 
+unique instance of the application being run, and then export the collected data into a .csv 
+file for convenient analysis. To extend the simple queue for package delivery, we implemented 
+the priority queue data structure for managing package deliveries. This allowed us to prioritize
+deliveries using widely recognized classifications such as: "No Rush", "Standard", and "Expedited".
+
+Next, we focused on adding a level of excitement and intrigue to the program. We began by  implementing a simulation of cryptographic ciphers to protect the internals of each package. 
+To amplify the stakes, a unique "Sky Reaper" drone was developed to fly around attempting to 
+intercept and crack the encrypted packages. Finally, to elevate the level of realism, a dynamic 
+weather system was developed to simulate random wind patterns of varying severity. Further, 
+because small drones are especially susceptible to wind, wind damage was introduced to the 
+drones slowing their movement speed until they eventually break down. These enhancements acted 
+not only to increase complexity and improve the realism of the simulation but also demonstrated a 
+thoughtful integration of data handling, system design, and user experience improvements.
+
 # Instructions
+
+// TODO
 
 # Requirements
 
