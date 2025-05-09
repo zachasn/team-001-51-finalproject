@@ -1,3 +1,6 @@
+// Generative AI model: GPT-4o was utilized to assist in writing this Doxygen
+// documentation
+
 #ifndef ENTITY_H_
 #define ENTITY_H_
 
@@ -143,6 +146,3 @@ class IEntity : public IPublisher {
 };
 
 #endif
-
-// Generative AI model: GPT-4o was utilized to assist in writing this Doxygen
-// documentation

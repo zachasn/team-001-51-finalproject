@@ -1,3 +1,6 @@
+// Generative AI model: GPT-4o was utilized to assist in writing this Doxygen
+// documentation
+
 #ifndef SIMULATION_MODEL_H_
 #define SIMULATION_MODEL_H_
 
@@ -110,34 +113,42 @@ class SimulationModel : public IObserver {
  protected:
   /// Reference to the simulation controller.
   IController& controller;
+
   /// Weather control system for simulating environmental effects.
   WeatherControl* weather;
+
   /// Map of all active simulation entities, keyed by ID.
   std::map<int, IEntity*> entities;
+
   /// Set of entity IDs marked for removal.
   std::set<int> removed;
+
   /**
    * @brief Helper function to remove an entity from the simulation.
    * @param id ID of the entity to remove.
    */
   void removeFromSim(int id);
+
   /// Pointer to the routing graph used for pathfinding.
   const routing::Graph* graph = nullptr;
+
   /// Factory used to create various types of entities.
   CompositeFactory entityFactory;
+
   /// Pointer to the adversarial SkyReaper drone.
   DroneObserver* adversary = nullptr;
+
   /// The type of encryption used for adversary detection/communication.
   std::string encryptionType;
+
   /// Trip scheduling system for assigning delivery tasks.
   TripScheduler* scheduler_;
+
   /// Priority-aware shipping queue used for managing deliveries.
   ShippingQueue* queue_;
+
   /// Notification system used for sending messages to observers.
   NotificationSystem* notifier_;
 };
 
 #endif  // SIMULATION_MODEL_H_
-
-// Generative AI model: GPT-4o was utilized to assist in writing this Doxygen
-// documentation

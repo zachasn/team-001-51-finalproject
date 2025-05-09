@@ -1,3 +1,6 @@
+// Generative AI model: GPT-4o was utilized to assist in writing this Doxygen
+// documentation
+
 #ifndef DRONE_OBSERVER_H_
 #define DRONE_OBSERVER_H_
 
@@ -46,6 +49,3 @@ class DroneObserver {
 };
 
 #endif  // DRONE_OBSERVER_H_
-
-// Generative AI model: GPT-4o was utilized to assist in writing this Doxygen
-// documentation

@@ -1,3 +1,6 @@
+// Generative AI model: GPT-4o was utilized to assist in writing this Doxygen
+// documentation
+
 #ifndef ENTITY_DECORATOR_H_
 #define ENTITY_DECORATOR_H_
 
@@ -154,6 +157,3 @@ class IEntityDecorator : public T {
 };
 
 #endif
-
-// Generative AI model: GPT-4o was utilized to assist in writing this Doxygen
-// documentation

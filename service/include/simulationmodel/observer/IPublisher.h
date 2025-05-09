@@ -1,3 +1,6 @@
+// Generative AI model: GPT-4o was utilized to assist in writing this Doxygen
+// documentation
+
 #ifndef IPUBLISHER_H_
 #define IPUBLISHER_H_
 
@@ -47,6 +50,3 @@ class IPublisher {
 };
 
 #endif  // IPUBLISHER_H_
-
-// Generative AI model: GPT-4o was utilized to assist in writing this Doxygen
-// documentation

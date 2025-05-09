@@ -1,3 +1,6 @@
+// Generative AI model: GPT-4o was utilized to assist in writing this Doxygen
+// documentation
+
 #ifndef DRONE_H_
 #define DRONE_H_
 
@@ -125,6 +128,3 @@ class Drone : public IEntity, public DronePublisher {
 };
 
 #endif
-
-// Generative AI model: GPT-4o was utilized to assist in writing this Doxygen
-// documentation

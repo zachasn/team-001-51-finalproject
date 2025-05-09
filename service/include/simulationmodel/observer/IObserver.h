@@ -1,3 +1,6 @@
+// Generative AI model: GPT-4o was utilized to assist in writing this Doxygen
+// documentation
+
 #ifndef IOBSERVER_H_
 #define IOBSERVER_H_
 
@@ -25,6 +28,3 @@ class IObserver {
 };
 
 #endif  // IOBSERVER_H_
-
-// Generative AI model: GPT-4o was utilized to assist in writing this Doxygen
-// documentation

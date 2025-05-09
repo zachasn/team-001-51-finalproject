@@ -1,3 +1,6 @@
+// Generative AI model: GPT-4o was utilized to assist in writing this Doxygen
+// documentation
+
 #ifndef Helicopter_H_
 #define Helicopter_H_
 
@@ -51,6 +54,3 @@ class Helicopter : public IEntity {
 };
 
 #endif
-
-// Generative AI model: GPT-4o was utilized to assist in writing this Doxygen
-// documentation

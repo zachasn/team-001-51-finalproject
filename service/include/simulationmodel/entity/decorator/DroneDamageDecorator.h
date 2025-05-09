@@ -1,3 +1,6 @@
+// Generative AI model: GPT-4o was utilized to assist in writing this Doxygen
+// documentation
+
 #ifndef DRONE_DAMAGE_DECORATOR_H
 #define DRONE_DAMAGE_DECORATOR_H
 
@@ -42,6 +45,3 @@ class DroneDamageDecorator : public DroneDecorator {
 };
 
 #endif  // DRONE_DAMAGE_DECORATOR_H
-
-// Generative AI model: GPT-4o was utilized to assist in writing this Doxygen
-// documentation

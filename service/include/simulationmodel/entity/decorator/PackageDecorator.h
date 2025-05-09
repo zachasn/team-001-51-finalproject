@@ -1,3 +1,6 @@
+// Generative AI model: GPT-4o was utilized to assist in writing this Doxygen
+// documentation
+
 #ifndef PACKAGE_DECORATOR_H_
 #define PACKAGE_DECORATOR_H_
 
@@ -73,6 +76,3 @@ class PackageDecorator : public IEntityDecorator<Package> {
 };
 
 #endif
-
-// Generative AI model: GPT-4o was utilized to assist in writing this Doxygen
-// documentation
