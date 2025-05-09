@@ -1,16 +1,16 @@
-Team Members:
+# Team Members
 Kyle Rumpza (rumpz020)
 
-Overview:
+# Overview
 
-Instructions:
+# Instructions
 
-Requirements:
+# Requirements
 
-Design:
+# Design
 
-Sprint Retrospective:
+# Sprint Retrospective
+ 
+# Jira Board
 
-Jira Board:
-
-UML:
+# UML
