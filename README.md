@@ -107,6 +107,9 @@ While the simulation is running the drones shall be wrapped in a Damage decorato
 
 # UML
 
+### Severe Weather
+![Severe Weather UML Diagram](./images/SevereWeatherUML.png "Severe Weather UML")
+
 # Docker
 
 # Youtube Presentation
