@@ -3,8 +3,8 @@
 
 #include <vector>
 
-#include "Package.h"
 #include "NotificationSystem.h"
+#include "Package.h"
 
 /**
  * @brief Manages a sorted queue of packages by priority with FIFO ordering.

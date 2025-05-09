@@ -1,12 +1,12 @@
 #include "DroneDamageDecorator.h"
+
 #include "WeatherControl.h"
 
 DroneDamageDecorator::DroneDamageDecorator(Drone* d) : DroneDecorator(d) {
   auto* decoration = dynamic_cast<DroneDecorator*>(d);
   if (decoration) {
     original_drone = decoration->getSub();
-  }
-  else {
+  } else {
     throw std::invalid_argument("Drone is not properly wrapped");
   }
   damageFactor = 0.001;
@@ -14,10 +14,8 @@ DroneDamageDecorator::DroneDamageDecorator(Drone* d) : DroneDecorator(d) {
 }
 
 void DroneDamageDecorator::update(double dt) {
-
   this->timeAccumulator += dt;
   if (timeAccumulator >= 1) {
-    
     WeatherControl* w = WeatherControl::GetInstance();
     double windMagnitude = w->getWind().magnitude();
     double damage = damageFactor * windMagnitude;

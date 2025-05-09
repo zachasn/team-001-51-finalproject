@@ -66,9 +66,7 @@ void Drone::getNextDelivery() {
   }
 }
 
-double Drone::getDurability() {
-  return durability;
-}
+double Drone::getDurability() { return durability; }
 
 void Drone::updateDurability(double damage) {
   durability -= damage;
@@ -81,7 +79,8 @@ void Drone::updateDurability(double damage) {
 }
 
 void Drone::updateSpeedBasedOnDurability() {
-  // speed decreases linearly down to a minumum of half its original speed before drone breaks
+  // speed decreases linearly down to a minumum of half its original speed
+  // before drone breaks
   speed = 30.0 * (0.5 + (durability / 100.0) * 0.5);
 }
 
@@ -91,7 +90,6 @@ void Drone::applyWind(double dt) {
 }
 
 void Drone::update(double dt) {
-
   Vector3 currenPosition = getPosition();
 
   applyWind(dt);
@@ -146,7 +144,6 @@ void Drone::update(double dt) {
 
   if (position.z < -880) position.z = -880;
   if (position.z > 880) position.z = 880;
-
 }
 Package* Drone::getPackage() const { return package; };
 

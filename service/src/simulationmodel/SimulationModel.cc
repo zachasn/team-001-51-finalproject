@@ -16,10 +16,10 @@ SimulationModel::SimulationModel(IController& controller,
   entityFactory.addFactory(new RobotFactory());
   entityFactory.addFactory(new HumanFactory());
   entityFactory.addFactory(new HelicopterFactory());
-      
+
   scheduler_ = new TripScheduler(notifier_);
   queue_ = new ShippingQueue();
-      
+
   weather = WeatherControl::GetInstance();
   weather->addObserver(this);
 }
@@ -69,14 +69,13 @@ IEntity* SimulationModel::createEntity(const JsonObject& entity) {
     entities[myNewEntity->getId()] = myNewEntity;
     myNewEntity->addObserver(this);
   } else if (myNewEntity = entityFactory.createEntity(entity)) {
-
     // ignore package and robot entities
     if (type != "package" && type != "robot") {
       DataManager::getInstance().addEntity(myNewEntity->getId(), name, type);
     }
 
-  // Nayak's addition start
-  
+    // Nayak's addition start
+
     // Hnadling package priority
     if (type == "package") {  // CHANGE: ADDED FOR PRIORITY
       Package* package = dynamic_cast<Package*>(myNewEntity);
@@ -91,8 +90,8 @@ IEntity* SimulationModel::createEntity(const JsonObject& entity) {
         }
       }
     }
-    
-  // Nayak's addition end
+
+    // Nayak's addition end
 
     // Call AddEntity to add it to the view
     myNewEntity->linkModel(this);

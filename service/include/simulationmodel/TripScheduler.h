@@ -3,10 +3,10 @@
 
 #include <vector>
 
-#include "ShippingQueue.h"
+#include "NotificationSystem.h"
 #include "Package.h"
 #include "Robot.h"
-#include "NotificationSystem.h"
+#include "ShippingQueue.h"
 
 /**
  * @brief Schedules trips for robots to deliver packages.
