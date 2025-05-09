@@ -28,8 +28,8 @@ intercept and crack the encrypted packages. Finally, to elevate the level of rea
 weather system was developed to simulate random wind patterns of varying severity. Further, 
 because small drones are especially susceptible to wind, wind damage was introduced to the 
 drones slowing their movement speed until they eventually break down. These enhancements acted 
-not only to increase complexity and improve the realism of the simulation but also demonstrated a 
-thoughtful integration of data handling, system design, and user experience improvements.
+not only to increase complexity and improve the realism of the simulation but also showcased a 
+thoughtful integration of data handling, system design, and user experience considerations.
 
 # Instructions
 
