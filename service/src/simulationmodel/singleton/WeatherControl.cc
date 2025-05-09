@@ -34,7 +34,7 @@ void WeatherControl::update(double dt) {
   }
 }
 
-double WeatherControl::enforceBounds(double val) {
+double WeatherControl::enforceBound200(double val) {
   if (val < -200) return -200;
   if (val > 200) return 200;
   return val;
@@ -52,7 +52,7 @@ void WeatherControl::updateWind() {
 
   wind = wind + delta_wind;
 
-  for (int i = 0; i < 3; ++i) wind[i] = enforceBounds(wind[i]);
+  for (int i = 0; i < 3; ++i) wind[i] = enforceBound200(wind[i]);
 
   if (notificationAccumulator >= notificationInterval) {
     notifyObservers(generateWindDescription());
@@ -60,18 +60,13 @@ void WeatherControl::updateWind() {
   }
 }
 
-std::string WeatherControl::determineDirection(double val, std::string first,
-                                               std::string second) const {
-  return (val >= 0) ? first : second;
-}
-
 std::string WeatherControl::generateWindDescription() {
   // [[(pixels per second) / (pixels per mile)]
   //    * (3600 seconds per hour)] / 10 scaling factor = mph
   double speed = ((wind.magnitude() / 1625.0) * 360);
 
-  std::string v_direction = determineDirection(wind.z, "South", "North");
-  std::string h_direction = determineDirection(wind.x, "East", "West");
+  std::string v_direction = (wind.z >= 0) ? "South" : "North";
+  std::string h_direction = (wind.x >= 0) ? "East" : "West";
   std::string wind_direction;
 
   if (std::fabs(wind.z) > 2 * std::fabs(wind.x)) {
