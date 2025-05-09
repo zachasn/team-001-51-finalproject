@@ -21,9 +21,9 @@ class DronePublisher {
    */
   DronePublisher() {}
   /**
-  * @brief Destructor for DronePublisher
-  */
-  virtual ~DronePublisher() {};
+   * @brief Destructor for DronePublisher
+   */
+  virtual ~DronePublisher(){};
   /**
    * @brief Adds an observer to publish data to
    * @param o DroneObserver to add

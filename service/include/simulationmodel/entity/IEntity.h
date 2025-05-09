@@ -134,7 +134,7 @@ class IEntity : public IPublisher {
 
   /// Visual color assigned to the entity.
   std::string color;
-  
+
   /// Name of the entity, often used for identification or labeling.
   std::string name;
 

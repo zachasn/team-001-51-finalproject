@@ -50,7 +50,6 @@ void DroneColorDecorator::update(double dt) {
                distToDestination);
 
       setColor(60 + 60 * percentage, 100, 50 * (sub->getDurability() / 100));
-
     }
   } else {
     setColor(0, 0, sub->getDurability());

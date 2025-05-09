@@ -1,17 +1,17 @@
 #ifndef HUMAN_H_
 #define HUMAN_H_
 
+#include "DataManager.h"
 #include "IEntity.h"
 #include "IStrategy.h"
-#include "DataManager.h"
 
 /**
  * @class Human
  * @brief Represents a human entity in the simulation.
  *
  * Humans can move through the simulation using an assigned strategy. They can
- * track their distance traveled and whether they have reached a specific destination,
- * such as Keller Hall.
+ * track their distance traveled and whether they have reached a specific
+ * destination, such as Keller Hall.
  */
 class Human : public IEntity {
  public:
@@ -21,14 +21,14 @@ class Human : public IEntity {
    */
   Human(const JsonObject& obj);
 
-    /**
+  /**
    * @brief Destructor for the Human entity.
    *
    * Frees any dynamically allocated resources such as the movement strategy.
    */
   ~Human();
 
-    /**
+  /**
    * @brief Updates the human's position and state.
    *
    * Called every simulation step with the time elapsed. Applies the current
