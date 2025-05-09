@@ -3,23 +3,23 @@
 
 #include <vector>
 
+#include "DataManager.h"
 #include "DroneObserver.h"
 #include "DronePublisher.h"
 #include "IEntity.h"
 #include "IStrategy.h"
-#include "math/vector3.h"
 #include "WeatherControl.h"
-#include "DataManager.h"
+#include "math/vector3.h"
 
 class Package;
 
-// Represents a drone in a physical system.
-// Drones move using euler integration based on a specified
-// velocity and direction.
 /**
  * @class Drone
- * @brief Represents a drone in a physical system. Drones move using euler
- * integration based on a specified velocity and direction.
+ * @brief Represents a drone in a physical delivery system.
+ *
+ * Drones move using Euler integration based on velocity and direction. They can
+ * pick up and deliver packages, respond to weather effects (wind), track
+ * durability, and interact with scheduling and observer systems.
  */
 class Drone : public IEntity, public DronePublisher {
  public:
@@ -84,23 +84,47 @@ class Drone : public IEntity, public DronePublisher {
    */
   Drone& operator=(const Drone& drone) = delete;
 
+  /**
+   * @brief Notifies the reaper of the drone's current position.
+   * @param pos The new position of the drone.
+   */
   void notifyDroneObserver(const Vector3& pos) override;
 
+  /**
+   * @brief Has the reaper take the package and resets the drones availability
+   */
   void takePackage();
 
+  /// Indicates whether the drone is available to accept a new delivery.
   bool available = false;
+
+  /// Indicates whether the current package has been picked up.
   bool pickedUp = false;
 
  private:
+  /// Current durability level of the drone.
   double durability;
-  Package* package = nullptr;
-  IStrategy* toPackage = nullptr;
-  IStrategy* toFinalDestination = nullptr;
-  // to calculate distance traveled by drone when its delivering a package
-  double distanceTraveled = 0;
-  Vector3 lastPosition;
-  WeatherControl* weather;
 
+  /// Pointer to the assigned package.
+  Package* package = nullptr;
+
+  /// Strategy used to move toward the package.
+  IStrategy* toPackage = nullptr;
+
+  /// Strategy used to move toward the final delivery destination.
+  IStrategy* toFinalDestination = nullptr;
+
+  /// Distance traveled while delivering the current package.
+  double distanceTraveled = 0;
+
+  /// Last recorded position used for tracking movement distance.
+  Vector3 lastPosition;
+
+  /// Pointer to the weather control system for applying wind effects.
+  WeatherControl* weather;
 };
 
 #endif
+
+// Generative AI model: GPT-4o was utilized to assist in writing this Doxygen
+// documentation
