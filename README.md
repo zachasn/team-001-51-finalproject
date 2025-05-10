@@ -146,6 +146,10 @@ The Drone can now communicate with the SkyReaper giving its location and a point
 ### Ciphered Mail and Interception:
 ![Ciphered Mail and Interception UML Diagram](./images/CipheredMail_UML.png "Ciphered Mail UML")
 
+### Data Manager
+![Data Collection UML Diagram](./images/DataCollectionUML.png "Data Mangager UML")
+
+
 # Docker
 
 # Youtube Presentation
