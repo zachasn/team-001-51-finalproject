@@ -41,13 +41,13 @@ thoughtful integration of data handling, system design, and user experience cons
 
 * The Data Collection Manager shall track the number of packages each drone delivered.
 
-* If an adversary drone successfully decrypts a classified package, The Data Collection Manager shall notify the user and update the number of packages lost to an adversary drone.
+* The Data collection manager shall track the type, name, id, and creation time of each entity and the total distance traveled by each entity throughout the simulation. 
 
-* The Data Collection Manager shall track the number of packages lost to an adversary drone.
+* The Data Collection Manager shall track the number of packages lost to an adversary drone and the condition of each drone.
 
-* When a package is successfully delivered, The Data Collection Manager shall notify the user of the total distance traveled to deliver the package.
+* If an adversary drone successfully decrypts an encrypted package, The Data Collection Manager shall update the number of packages lost.
 
-* When the user presses the "Export Data" button, the Data Collection Manager shall save the data to a csv file.
+* When the user presses the "Export Data" button, the Data Collection Manager shall save the data to a csv file and notify the user if the data was saved successfully.
 
 ### Shipping Priority:
 
