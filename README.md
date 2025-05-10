@@ -125,6 +125,15 @@ thoughtful integration of data handling, system design, and user experience cons
 
 # Design
 
+### Ciphered Mail and Interception:
+This extension extends the functionality of the Package class and the Drone class to implement the Ciphered Mail and Interception extension.
+To extend the features of the Package class we used the decorator design pattern to extend encryption to packages. 
+The reason for choosing the decorator design class was to extend the Package class while maintaining the base class functionality. 
+The design for passing messages between the Drone and SkyReaper that allows the SkyReaper to receive positioning information from Drones once inside a fixed radius uses the Observer pattern. 
+The choice for the Observer pattern comes from the ability to send publish/subscribe messages between the two objects. 
+We can extend the Drone classes functionality by having it inherit from DronePublisher, and extend the SkyReaper by having it inherit from DroneObserver. 
+The Drone can now communicate with the SkyReaper giving its location and a pointer to itself allowing the SkyReaper to target it and perform operations on the drone such as interception. 
+
 # Sprint Retrospective
  
 # Jira Board
@@ -133,6 +142,9 @@ thoughtful integration of data handling, system design, and user experience cons
 
 ### Severe Weather
 ![Severe Weather UML Diagram](./images/SevereWeatherUML.png "Severe Weather UML")
+
+### Ciphered Mail and Interception:
+![Ciphered Mail and Interception UML Diagram](./images/CipheredMail_UML.png "Ciphered Mail UML")
 
 # Docker
 
