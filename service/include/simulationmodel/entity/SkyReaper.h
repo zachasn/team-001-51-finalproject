@@ -37,11 +37,11 @@ class SkyReaper : public DroneObserver, public IEntity {
    * @param d Pointer to drone object
    */
   void notifyPosition(const Vector3& location, Drone* d) override;
-  Drone* target = nullptr;
-  Vector3 target_pos;
-  double radius = 500.0;
 
  private:
+    Drone* target = nullptr;
+  Vector3 target_pos;
+  double radius = 350.0;
   Package* package = nullptr;
   IStrategy* toDrone = nullptr;
 };
