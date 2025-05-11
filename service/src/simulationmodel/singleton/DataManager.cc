@@ -1,7 +1,5 @@
 #include "DataManager.h"
 
-DataManager::DataManager() = default;
-
 void DataManager::addEntity(int entityId, std::string entityName,
                             std::string entityType) {
   auto now = std::chrono::system_clock::now();

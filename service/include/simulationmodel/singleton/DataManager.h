@@ -32,21 +32,39 @@ struct entity_stats {
 };
 
 /**
- * @brief This class is responsible for collecting and managing data from
- * entities
+ * @brief Singleton class that manages and tracks statistics of entities
+ *
+ * Provides a centralized data collection and management to the drone
+ * simulation. Implements singleton pattern using lazy instantiation
  */
 class DataManager {
- protected:
-  DataManager();
+ private:
+  /**
+   * @brief Private default constructor to enforce singleton pattern
+   *
+   */
+  DataManager() = default;
+  /**
+   * @brief Map of entity IDs to their statistics
+   */
   std::map<int, entity_stats> data;
 
  public:
+  /**
+   * @brief Get the singleton instance of DataManager
+   * @return Singleton instance of DataManager
+   */
   static DataManager& getInstance() {
     static DataManager instance;
     return instance;
   }
-
+  /**
+   * @brief Delete the copy constructor to prevent copying
+   */
   DataManager(const DataManager&) = delete;
+  /**
+   * @brief Delete the assignment operator to prevent copying
+   */
   DataManager& operator=(const DataManager&) = delete;
 
   /**
