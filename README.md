@@ -125,6 +125,9 @@ thoughtful integration of data handling, system design, and user experience cons
 
 # Design
 
+## Data Collection Manager:
+The Data Collection extension provides a centralized data collection and management system for the drone simulation. We used the singleton design pattern with lazy instantiation to ensure that there is only one instance of the data collection manager. This design choice ensures consistent and centralized data tracking across the entire simulation without the need for multiple instances of the data collection manager. We used a map data structure where the key is the entity's ID and the value is a struct containing all metrics for that entity. This design choice provides easy and efficient access to the data for each entity.
+
 ### Ciphered Mail and Interception:
 This extension extends the functionality of the Package class and the Drone class to implement the Ciphered Mail and Interception extension.
 To extend the features of the Package class we used the decorator design pattern to extend encryption to packages. 
