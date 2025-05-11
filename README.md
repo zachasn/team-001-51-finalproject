@@ -88,7 +88,8 @@ Clicking the "Export Data" button will export the collected data to a csv file. 
 in the root directory and will contain the following information:
 * Basic entity information: ID, name, type, and creation time.
 * Metrics: Total distance traveled, number of packages delivered, and number of packages lost.
-* Drone condition: Condition of each drone. This is based on the drone's durability. 
+* Drone condition: Condition of each drone. This is based on the drone's durability.
+
 Data cannot be exported if the simulation is stopped. Make sure to export data before stopping the simulation or the collected data will be lost.
 
 # Requirements
