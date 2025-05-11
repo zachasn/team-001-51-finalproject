@@ -48,7 +48,6 @@ docker run --rm -it -p 8081:8081 michaelverbout/drone_sim
 This will start the simulation server on port 8081 of your local machine. You can access the simulation by opening your browser and navigating to `http://localhost:8081`.
 
 to stop the simulation, click the "Stop Simulation" button in the top right corner of the screen.
-Alternatively.
 
 ## Using the Frontend
 A simple panel menu is provided to allow the user to interact with the simulation. This menu is located on the top right
