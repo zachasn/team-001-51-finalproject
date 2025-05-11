@@ -22,7 +22,8 @@ file for convenient analysis. To extend the simple queue for package delivery, w
 the priority queue data structure for managing package deliveries. This allowed us to prioritize
 deliveries using widely recognized classifications such as: "No Rush", "Standard", and "Expedited".
 
-Next, we focused on adding a level of excitement and intrigue to the program. We began by  implementing a simulation of cryptographic ciphers to protect the internals of each package. 
+Next, we focused on adding a level of excitement and intrigue to the program. We began by 
+implementing a simulation of cryptographic ciphers to protect the internals of each package. 
 To amplify the stakes, a unique "Sky Reaper" drone was developed to fly around attempting to 
 intercept and crack the encrypted packages. Finally, to elevate the level of realism, a dynamic 
 weather system was developed to simulate random wind patterns of varying severity. Further, 
