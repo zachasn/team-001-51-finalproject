@@ -137,6 +137,13 @@ The choice for the Observer pattern comes from the ability to send publish/subsc
 We can extend the Drone classes functionality by having it inherit from DronePublisher, and extend the SkyReaper by having it inherit from DroneObserver. 
 The Drone can now communicate with the SkyReaper giving its location and a pointer to itself allowing the SkyReaper to target it and perform operations on the drone such as interception. 
 
+### Severe Weather:
+To enhance realism and introduce environmental complexity, I developed a Severe Weather extension which simulates ongoing wind disturbances and their damaging effects on drones. A central component of this extension is the WeatherControl class, which I implemented as a Singleton to ensure the wind was applied consistantly to all drones. The choice to use a Singleton also ensured the computational complexity wouldn't spiral out of control, as the wind will only need to be calculated once per second of simulation-time, and can then be accessed by all dependent classes. As such, WeatherControl acts as the global authority for wind data, updating disturbances every second and then providing the current wind status to all drones in the simulation. 
+
+To facilitate communication with the front-end notification window, the Observer pattern was utilized to publish weather update notifications to the SimulationModel. These updates include information about the current magnitude & direction of the wind, along with a periodic notification regarding a wind reset mechanic I implemented. 
+
+Finally, to model the wind-damage drones accrue over time, I implemented the Decorator pattern by creating a DroneDamageDecorator class. This decorator applies wind-based damage without modifying the base Drone class. At fixed intervals, the decorator retrieves the wind intensity from the WeatherControl class and reduces drone durability resulting in slower speed until their eventual destruction. I chose the Decorator pattern for its ability to extend behavior dynamically while leaving the original Drone class largely untouched. This ensured less refactoring of my extension when integrating my code with my other group member's extensions. The utilization of these patterns culminated in a robust extension which is open to future modification, and maintains a low level of coupling to simplify future project extensions and refactors.
+
 # Sprint Retrospective
  
 # Jira Board
@@ -151,7 +158,6 @@ The Drone can now communicate with the SkyReaper giving its location and a point
 
 ### Data Manager
 ![Data Collection UML Diagram](./images/DataCollectionUML.png "Data Mangager UML")
-
 
 # Docker
 
