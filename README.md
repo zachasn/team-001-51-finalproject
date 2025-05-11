@@ -34,7 +34,21 @@ thoughtful integration of data handling, system design, and user experience cons
 
 # Instructions
 
-//Build And run commands 
+## Running the Simulation
+
+To run the simulation, you will need to have Docker installed on your machine. Once you have Docker installed, run the following commands in your terminal:
+
+```bash
+docker build -t michaelverbout/drone_sim .
+```
+```bash
+docker run --rm -it -p 8081:8081 michaelverbout/drone_sim
+```
+
+This will start the simulation server on port 8081 of your local machine. You can know access the simulation by opening your browser and navigating to `http://localhost:8081`.
+
+to stop the simulation, click the "Stop Simulation" button in the top right corner of the screen.
+Alternatively, you can stop the simulation by pressing `CTRL + C` in the terminal.
 
 ## Using the Frontend
 A simple panel menu is provided to allow the user to interact with the simulation. This menu is located on the top right
