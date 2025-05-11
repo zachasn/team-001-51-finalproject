@@ -1,3 +1,7 @@
+// Generative AI model: GPT-4o was utilized to assist in writing the Doxygen
+// documentation for just the @class and @brief description of the Skyreaper
+// above the class declaration the rest was completely written by Kyle.
+
 #ifndef SKY_REAPER_H_
 #define SKY_REAPER_H_
 
@@ -11,6 +15,17 @@
 class Package;
 class Drone;
 
+/**
+ * @class SkyReaper
+ * @brief Represents the adversary drone entity that intercepts delivery drones
+ * carrying encrypted packages.
+ *
+ * SkyReaper uses the Observer Pattern to track and pursue delivery drones
+ * within a certain radius. Upon interception, it attempts to decrypt the
+ * package using a probabilistic brute-force approach. If successful, the
+ * package is confiscated and the delivery fails. Otherwise, the drone is
+ * allowed to continue.
+ */
 class SkyReaper : public DroneObserver, public IEntity {
  public:
   /**
