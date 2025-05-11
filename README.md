@@ -61,6 +61,7 @@ From this panel, the user can provide the following information:
 * Search Strategy: Search strategy the drone will use to pick up/drop off the package.
 * Encryption Strategy: whether the package is encrypted or not. Each encryption algorithm has a different chance of being cracked by the Sky Reaper.
 * Priority: The priority of the package. Can be "No Rush", "Standard", or "Expedited". with "Expedited" being the highest priority.
+
 Once this information is provided, the drone will then pick the package from the yellow start location and deliver it to the green drop off location. 
 If you no longer want to schedule a delivery, you can click the "Cancel" button.
 
