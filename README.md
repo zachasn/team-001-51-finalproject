@@ -202,6 +202,27 @@ To facilitate communication with the front-end notification window, the Observer
 Finally, to model the wind-damage drones accrue over time, I implemented the Decorator pattern by creating a DroneDamageDecorator class. This decorator applies wind-based damage without modifying the base Drone class. At fixed intervals, the decorator retrieves the wind intensity from the WeatherControl class and reduces drone durability resulting in slower speed until their eventual destruction. I chose the Decorator pattern for its ability to extend behavior dynamically while leaving the original Drone class largely untouched. This ensured less refactoring of my extension when integrating my code with my other group member's extensions. The utilization of these patterns culminated in a robust extension which is open to future modification, and maintains a low level of coupling to simplify future project extensions and refactors.
 
 # Sprint Retrospective
+
+Our sprint goal was to implement new features for our Drone simulation model implemented using desing patterns. Our duration was roughly 1 month and our team size was 4 people. 
+Key Deliverables included UML diagrams, our github repo, and a preesentation to showcase our work.
+
+### What went well 
+* Branch management made it easy to merge code and do pull requests. Each developer worked in their own local branch which minimized technical roadblocks
+* Seperation of duties ensured each team member had a dedicated extension they could solely focus on
+* Good documentation using Doxygen and google code documentation standards
+* Effective use of google chat for communication and planning
+* Dedicated Sprint Captain role allowed for better delegation and pull request and merge management 
+
+### What didn't go well 
+* The Jira spring board was followed loosley becoming more ad-hoc as the sprint progressed due to other project obligations
+* Technical debt from architecture modifications which may not all have proper testing
+* No knowledge sharing or updates of team member's progress
+
+### Areas for Improvement for Next Sprint
+* Improve team communication with weekly meetings or check-ins
+* Better Sprint planning and adherence to 
+* Don't rely as heavily on the Sprint captain for pull requests and merging
+* Consider a rotating Sprint captain in situations where the workload was even
  
 # Jira Board
 
