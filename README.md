@@ -34,7 +34,48 @@ thoughtful integration of data handling, system design, and user experience cons
 
 # Instructions
 
-// TODO
+//Build And run commands 
+
+## Using the Frontend
+A simple panel menu is provided to allow the user to interact with the simulation. This menu is located on the top right
+corner of the screen and has the following options:
+
+![Frontend Menu](./images/FrontendMenu.png "Frontend Menu")
+
+* Change View: Focus the camera on a specific entity in the simulation.
+* Simulation Speed: Adjust the speed of the simulation.
+* Show All Routes: Display all available routes for entities in the simulation.
+* Schedule Trip: Schedule a new trip for a drone, further details are provided below.
+* Add Human: Add a human entity to the simulation.
+* Add Drone: Add a drone entity to the simulation, further details are provided below.
+* Stop Simulation: Stops the simulation server.
+* Export Data: Export the collected data to a csv file, further details are provided below.
+
+## Scheduling A Package
+Clicking the "Schedule Trip" button will change the menu to allow the user to schedule a new delivery.
+
+![Schedule Trip Panel](./images/ScheduleTripMenu.png "Schedule Trip Menu")
+
+From this panel, the user can provide the following information:
+* Name: The name of the package.
+* Search Strategy: Search strategy the drone will use to pick up/drop off the package.
+* Encryption Strategy: whether the package is encrypted or not. Each encryption algorithm has a different chance of being cracked by the Sky Reaper.
+* Priority: The priority of the package. Can be "No Rush", "Standard", or "Expedited". with "Expedited" being the highest priority.
+Once this information is provided, the drone will then pick the package from the yellow start location and deliver it to the green drop off location. 
+If you no longer want to schedule a delivery, you can click the "Cancel" button.
+
+## Adding A Drone
+Clicking the "Add Drone" button will spawn a new drone in the simulation. Each new drone will be named
+"Drone-X" where X is the drone's ID. Drones have a default durability of 100. As the simulation runs, the drone's durability will decrease and once it reaches 0, the drone will be removed from the simulation.
+
+## Exporting Data
+Clicking the "Export Data" button will export the collected data to a csv file. This file will be named
+"simulation_data.csv" and if the file already exists, it will be overwritten. The file will be located
+in the root directory and will contain the following information:
+* Basic entity information: ID, name, type, and creation time.
+* Metrics: Total distance traveled, number of packages delivered, and number of packages lost.
+* Drone condition: Condition of each drone. This is based on the drone's durability. 
+Data cannot be exported if the simulation is stopped. Make sure to export data before stopping the simulation or the collected data will be lost.
 
 # Requirements
 
