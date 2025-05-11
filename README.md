@@ -203,26 +203,26 @@ Finally, to model the wind-damage drones accrue over time, I implemented the Dec
 
 # Sprint Retrospective
 
-Our sprint goal was to implement new features for our Drone simulation model implemented using desing patterns. Our duration was roughly 1 month and our team size was 4 people. 
-Key Deliverables included UML diagrams, our github repo, and a preesentation to showcase our work.
+Our sprint goal was to implement new features for our drone simulation model using design patterns. The sprint lasted approximately one month, and our team consisted of four members. Key deliverables included UML diagrams, a GitHub repository, and a presentation to showcase our work.
 
-### What went well 
-* Branch management made it easy to merge code and do pull requests. Each developer worked in their own local branch which minimized technical roadblocks
-* Seperation of duties ensured each team member had a dedicated extension they could solely focus on
-* Good documentation using Doxygen and google code documentation standards
-* Effective use of google chat for communication and planning
-* Dedicated Sprint Captain role allowed for better delegation and pull request and merge management 
+### What Went Well
+* Branch management made it easy to merge code and create pull requests. Each developer worked in their own local branch, minimizing technical roadblocks.
+* Clear separation of responsibilities allowed each team member to focus on their individual component or feature.
+* Documentation was thorough, with consistent use of Doxygen and Google-style code documentation standards.
+* Google Chat was used effectively for daily communication and quick planning decisions.
+* Assigning a dedicated Sprint Captain improved delegation, and streamlined pull request and merge processes.
 
-### What didn't go well 
-* The Jira spring board was followed loosley becoming more ad-hoc as the sprint progressed due to other project obligations
-* Technical debt from architecture modifications which may not all have proper testing
-* No knowledge sharing or updates of team member's progress
+### What Didn't Go Well
+* The Jira sprint board was not followed consistently, becoming more ad hoc as the sprint progressed due to competing project deadlines.
+* Some architectural changes introduced technical debt, particularly in areas lacking adequate test coverage.
+* There was limited knowledge sharing between team members, and little visibility into individual progress.
 
-### Areas for Improvement for Next Sprint
-* Improve team communication with weekly meetings or check-ins
-* Better Sprint planning and adherence to 
-* Don't rely as heavily on the Sprint captain for pull requests and merging
-* Consider a rotating Sprint captain in situations where the workload was even
+### Areas for Improvement
+* Hold weekly team meetings or check-ins to ensure better communication and status updates.
+* Stick more closely to the sprint plan and regularly update the Jira board.
+* Distribute responsibilities more evenly to avoid relying solely on the Sprint Captain for merging and pull requests.
+* Consider rotating the Sprint Captain role to balance workload and give everyone experience in leadership tasks.
+
  
 # Jira Board
 
