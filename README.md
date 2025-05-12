@@ -194,6 +194,11 @@ The choice for the Observer pattern comes from the ability to send publish/subsc
 We can extend the Drone classes functionality by having it inherit from DronePublisher, and extend the SkyReaper by having it inherit from DroneObserver. 
 The Drone can now communicate with the SkyReaper giving its location and a pointer to itself allowing the SkyReaper to target it and perform operations on the drone such as interception. 
 
+### Priority Shipping:
+This extension lets users assign priority levels (No Rush, Standard, Expedited) to packages, manage a shipping queue, and display queue details on the control panel. I designed it around the State Pattern from Refactoring Guru, to handle priority states dynamically. Each package references a PriorityShippingState interface, implemented by NoRushState, StandardState, and ExpeditedState classes, which define how priorities affect the queue placement and notifications. This allows packages to transition between states (from Standard to Expedited for example) without modifying the Package class, ensuring flexibility and easy integration with drones and robots.
+
+The ShippingQueue class maintains a list of packages, and the SimulationModel schedules deliveries, sets default Standard priority, and shows error messages for invalid priorities or post-pickup issues. The NotificationSystem class publishes UI updates, like “Scheduled delivery for x_package” or priority errors. This design keeps the system simple, supports features like locking priorities after pickup.
+
 ### Severe Weather:
 To enhance realism and introduce environmental complexity, I developed a Severe Weather extension which simulates ongoing wind disturbances and their damaging effects on drones. A central component of this extension is the WeatherControl class, which I implemented as a Singleton to ensure the wind was applied consistantly to all drones. The choice to use a Singleton also ensured the computational complexity wouldn't spiral out of control, as the wind will only need to be calculated once per second of simulation-time, and can then be accessed by all dependent classes. As such, WeatherControl acts as the global authority for wind data, updating disturbances every second and then providing the current wind status to all drones in the simulation. 
 
@@ -233,6 +238,10 @@ Key Deliverables included UML diagrams, our github repo, and a preesentation to 
 
 ### Ciphered Mail and Interception:
 ![Ciphered Mail and Interception UML Diagram](./images/CipheredMail_UML.png "Ciphered Mail UML")
+
+### Shipping Priority
+![Shipping Priority UML Diagram](./images/Shipping_Priority_UpdatedUML.png "Data Mangager UML")
+
 
 ### Data Manager
 ![Data Collection UML Diagram](./images/DataCollectionUML.png "Data Mangager UML")

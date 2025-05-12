@@ -1,3 +1,4 @@
+//AI citation: Used ChatGPT for logic improvements and debugging
 #include "PriorityShippingContext.h"
 
 PriorityShippingContext::PriorityShippingContext() {

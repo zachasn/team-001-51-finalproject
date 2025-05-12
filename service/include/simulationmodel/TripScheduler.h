@@ -1,3 +1,4 @@
+//AI citation: ChatGPT was used for the doxygen comments and input on whether the attributes are sufficient or not
 #ifndef TRIP_SCHEDULER_H_
 #define TRIP_SCHEDULER_H_
 

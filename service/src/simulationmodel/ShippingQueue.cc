@@ -1,3 +1,4 @@
+//AI citation: ChatGPT was used to improve on the queue implementation logic and debugging
 #include "ShippingQueue.h"
 
 void ShippingQueue::addPackage(Package* package, NotificationSystem* notifier) {

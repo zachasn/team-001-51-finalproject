@@ -1,3 +1,4 @@
+//AI citation: Used chatGPT for debugging and logic improvement for functions
 #include "TripScheduler.h"
 
 TripScheduler::TripScheduler(NotificationSystem* notifier) {
