@@ -7,7 +7,8 @@
 
 /**
  * @class Vector3
- * @brief a simple class used for vector math, most functions are self explanatory.
+ * @brief a simple class used for vector math, most functions are self
+ * explanatory.
  */
 class Vector3 {
  public:

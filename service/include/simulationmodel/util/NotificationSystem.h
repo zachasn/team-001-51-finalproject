@@ -1,4 +1,5 @@
-//Used chatGPT for doxygen comments and improving attributes for better notification relay
+// Used chatGPT for doxygen comments and improving attributes for better
+// notification relay
 
 #ifndef NOTIFICATION_SYSTEM_H_
 #define NOTIFICATION_SYSTEM_H_

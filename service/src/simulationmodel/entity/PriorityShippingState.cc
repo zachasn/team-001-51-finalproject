@@ -1,4 +1,4 @@
-//AI citation: Used ChatGPT for logic improvements and debugging
+// AI citation: Used ChatGPT for logic improvements and debugging
 #include "PriorityShippingState.h"
 
 #include "Package.h"

@@ -1,4 +1,4 @@
-//AI citation: Used ChatGPT for doxygen comments and missing logic suggestions
+// AI citation: Used ChatGPT for doxygen comments and missing logic suggestions
 
 #ifndef SHIPPING_QUEUE_H_
 #define SHIPPING_QUEUE_H_
