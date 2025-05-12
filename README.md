@@ -231,7 +231,7 @@ Our sprint goal was to implement new features for our drone simulation model usi
  
 # Jira Board
 
-![Jira Board Screenshot](./images/JiraBoardV0.png "Jira Board Screenshot")
+![Jira Board Screenshot](./images/JiraBoardV1.png "Jira Board Screenshot")
 
 # UML
 
