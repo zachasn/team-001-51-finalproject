@@ -250,4 +250,4 @@ Our sprint goal was to implement new features for our drone simulation model usi
 
 # Docker
 
-docker repo(https://hub.docker.com/repository/docker/zachasan/drone_sim/general)
+https://hub.docker.com/repository/docker/zachasan/drone_sim/general
