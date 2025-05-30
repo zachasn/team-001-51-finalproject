@@ -39,10 +39,10 @@ thoughtful integration of data handling, system design, and user experience cons
 To run the simulation, you will need to have Docker installed on your machine. Once you have Docker installed, run the following commands in your terminal:
 
 ```bash
-docker build -t michaelverbout/drone_sim .
+docker build -t zachasan/drone_sim .
 ```
 ```bash
-docker run --rm -it -p 8081:8081 michaelverbout/drone_sim
+docker run --rm -it -p 8081:8081 zachasan/drone_sim
 ```
 
 This will start the simulation server on port 8081 of your local machine. You can access the simulation by opening your browser and navigating to `http://localhost:8081`.
@@ -250,4 +250,4 @@ Our sprint goal was to implement new features for our drone simulation model usi
 
 # Docker
 
-https://hub.docker.com/repository/docker/michaelverbout/drone_sim/general
+docker repo(https://hub.docker.com/repository/docker/zachasan/drone_sim/general)
