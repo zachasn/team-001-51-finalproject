@@ -1,6 +1,7 @@
 #include <chrono>  // NOLINT [build/c++11]
 #include <map>
 
+#include "DataManager.h"
 #include "OBJParser.h"
 #include "SimulationModel.h"
 #include "WebServer.h"
@@ -12,7 +13,9 @@ bool stopped = false;
 class TransitService : public JsonSession, public IController {
  public:
   TransitService()
-      : model(*this), start(std::chrono::system_clock::now()), time(0.0) {}
+      : model(*this, nullptr),
+        start(std::chrono::system_clock::now()),
+        time(0.0) {}
 
   /// Handles specific commands from the web server
   void receiveCommand(const std::string& cmd, const JsonObject& data,
@@ -56,6 +59,15 @@ class TransitService : public JsonSession, public IController {
       std::cout << "Stop command administered\n";
       stopped = true;
       model.stop();
+    } else if (cmd == "exportData") {
+      int result = DataManager::getInstance().exportData();
+      if (result == 1) {
+        std::string message = "failure";
+        model.notify(message);
+      } else {
+        std::string message = "success";
+        model.notify(message);
+      }
     }
   }
 

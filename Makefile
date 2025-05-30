@@ -45,4 +45,4 @@ docs:
 
 # runs clang-format
 lint:
-	clang-format -style=Google -i $(shell find ./service/include/simulationmodel/ ./service/src/simulationmodel/ -type f -name '*.cc' -o -name '*.h') 
+	clang-format -style=Google -i $(shell find ./service/include/simulationmodel/ ./service/src/simulationmodel/ -type f -name '*.cc' -o -name '*.h')

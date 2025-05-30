@@ -1,3 +1,6 @@
+// Generative AI model: GPT-4o was utilized to assist in writing this Doxygen
+// documentation
+
 #ifndef ENTITY_H_
 #define ENTITY_H_
 
@@ -117,13 +120,28 @@ class IEntity : public IPublisher {
   virtual void update(double dt) = 0;
 
  protected:
+  /// Pointer to the simulation model this entity is linked to.
   SimulationModel* model = nullptr;
+
+  /// Unique identifier for the entity.
   int id = -1;
+
+  /// JSON object containing this entity's configuration and metadata.
   JsonObject details;
+
+  /// Current position of the entity in the simulation world.
   Vector3 position;
+
+  /// Current facing direction of the entity.
   Vector3 direction;
+
+  /// Visual color assigned to the entity.
   std::string color;
+
+  /// Name of the entity, often used for identification or labeling.
   std::string name;
+
+  /// Speed of the entity's movement (units per second).
   double speed = 0;
 };
 
