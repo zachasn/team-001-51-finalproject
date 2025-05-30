@@ -21,6 +21,6 @@ RUN make clean
 
 RUN rm -rf ./web/node_modules
 
-RUN make -j
+#RUN make -j
 
 CMD ["make", "run"]
