@@ -251,7 +251,3 @@ Our sprint goal was to implement new features for our drone simulation model usi
 # Docker
 
 https://hub.docker.com/repository/docker/michaelverbout/drone_sim/general
-
-# Youtube Presentation
-
-https://youtu.be/zdaB4t1dXhc
