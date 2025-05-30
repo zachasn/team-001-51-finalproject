@@ -5,11 +5,14 @@
 #include <limits>
 
 #include "AstarStrategy.h"
+#include "DataManager.h"
 #include "SimulationModel.h"
 
 Vector3 Human::kellerPosition(64.0, 254.0, -210.0);
 
-Human::Human(const JsonObject& obj) : IEntity(obj) {}
+Human::Human(const JsonObject& obj) : IEntity(obj) {
+  this->lastPosition = this->position;
+}
 
 Human::~Human() {
   if (movement) delete movement;
@@ -31,5 +34,13 @@ void Human::update(double dt) {
     dest.y = position.y;
     dest.z = ((static_cast<double>(rand())) / RAND_MAX) * (1600) - 800;
     if (model) movement = new AstarStrategy(position, dest, model->getGraph());
+  }
+
+  double diff = this->lastPosition.dist(this->position);
+  this->distanceTraveled += diff;
+  this->lastPosition = this->position;
+  if (this->distanceTraveled > 1625.0) {
+    DataManager::getInstance().distanceTraveled(id);
+    this->distanceTraveled = 0;
   }
 }

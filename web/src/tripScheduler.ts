@@ -10,6 +10,7 @@ const scheduleButton = $("#schedule-button")[0];
 const scheduleForm = $("#schedule-input")[0];
 const scheduleName = $("#schedule-name")[0] as HTMLInputElement;
 const scheduleStrategy = $("#search-strategy")[0] as HTMLSelectElement;
+const encryptionStrategy = $("#encryption-strategy")[0] as HTMLSelectElement;
 const scheduleSubmit = $("#schedule-submit")[0];
 const scheduleError = $("#schedule-error")[0];
 const scheduleCancelButton = $("#schedule-cancel")[0];
@@ -84,6 +85,7 @@ function initScheduler() {
   scheduleSubmit.onclick = () => {
     let name = scheduleName.value;
     let searchStrat = scheduleStrategy.value;
+    let encryptionStrat = encryptionStrategy.value;
     scheduleError.innerHTML = "";
     if (name == "")
       scheduleError.innerHTML +=
@@ -134,6 +136,7 @@ function initScheduler() {
           beamSelector2.position.z * 14.2,
         ],
         search: searchStrat,
+        encryption: encryptionStrat,
       });
       beamState = 0;
       beamSelector1.visible = false;
@@ -170,8 +173,8 @@ function initScheduler() {
           ev.preventDefault();
           (
             scheduleStrategy[
-              (scheduleStrategy.selectedIndex + scheduleStrategy.length - 1) %
-                scheduleStrategy.length
+            (scheduleStrategy.selectedIndex + scheduleStrategy.length - 1) %
+            scheduleStrategy.length
             ] as HTMLOptionElement
           ).selected = true;
         }
@@ -181,7 +184,7 @@ function initScheduler() {
           ev.preventDefault();
           (
             scheduleStrategy[
-              (scheduleStrategy.selectedIndex + 1) % scheduleStrategy.length
+            (scheduleStrategy.selectedIndex + 1) % scheduleStrategy.length
             ] as HTMLOptionElement
           ).selected = true;
         }

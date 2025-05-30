@@ -7,12 +7,21 @@
 #include "AstarStrategy.h"
 #include "BeelineStrategy.h"
 #include "BfsStrategy.h"
+#include "DataManager.h"
 #include "DfsStrategy.h"
 #include "DijkstraStrategy.h"
+#include "DroneObserver.h"
+#include "DronePublisher.h"
 #include "Package.h"
 #include "SimulationModel.h"
 
-Drone::Drone(const JsonObject& obj) : IEntity(obj) { available = true; }
+Drone::Drone(const JsonObject& obj) : IEntity(obj) {
+  available = true;
+
+  this->lastPosition = this->position;
+  durability = 100;
+  weather = WeatherControl::GetInstance();
+}
 
 Drone::~Drone() {
   if (toPackage) delete toPackage;
@@ -20,6 +29,7 @@ Drone::~Drone() {
 }
 
 void Drone::getNextDelivery() {
+  addDroneObserver(model->getAdversary());
   if (model && model->scheduledDeliveries.size() > 0) {
     package = model->scheduledDeliveries.front();
     model->scheduledDeliveries.pop_front();
@@ -56,7 +66,34 @@ void Drone::getNextDelivery() {
   }
 }
 
+double Drone::getDurability() { return durability; }
+
+void Drone::updateDurability(double damage) {
+  durability -= damage;
+  DataManager::getInstance().setCondition(id, durability);
+  if (durability <= 0) {
+    notifyObservers(name + " has broken and been removed from the simulation.");
+    model->scheduledDeliveries.push_back(package);
+    model->removeEntity(id);
+  }
+}
+
+void Drone::updateSpeedBasedOnDurability() {
+  // speed decreases linearly down to a minumum of half its original speed
+  // before drone breaks
+  speed = 30.0 * (0.5 + (durability / 100.0) * 0.5);
+}
+
+void Drone::applyWind(double dt) {
+  Vector3 scaledWind = weather->getWind() * (dt / 10);
+  position = position + scaledWind;
+}
+
 void Drone::update(double dt) {
+  Vector3 currenPosition = getPosition();
+
+  applyWind(dt);
+
   if (available) getNextDelivery();
 
   if (toPackage) {
@@ -71,15 +108,19 @@ void Drone::update(double dt) {
     }
   } else if (toFinalDestination) {
     toFinalDestination->move(this, dt);
+    notifyDroneObserver(position);
 
     if (package && pickedUp) {
       package->setPosition(position);
       package->setDirection(direction);
+
+      notifyDroneObserver(position);
     }
 
     if (toFinalDestination->isCompleted()) {
       std::string message = getName() + " dropped off: " + package->getName();
       notifyObservers(message);
+      DataManager::getInstance().packagesDelivered(id);
       delete toFinalDestination;
       toFinalDestination = nullptr;
       package->handOff();
@@ -88,5 +129,31 @@ void Drone::update(double dt) {
       pickedUp = false;
     }
   }
+
+  double diff = this->lastPosition.dist(this->position);
+  this->distanceTraveled += diff;
+  this->lastPosition = this->position;
+  if (this->distanceTraveled > 1625.0) {
+    DataManager::getInstance().distanceTraveled(id);
+    this->distanceTraveled = 0;
+  }
+
+  // enforce map boundaries
+  if (position.x < -1470) position.x = -1470;
+  if (position.x > 1570) position.x = 1570;
+
+  if (position.z < -880) position.z = -880;
+  if (position.z > 880) position.z = 880;
 }
-Package* Drone::getPackage() { return package; };
+Package* Drone::getPackage() const { return package; };
+
+void Drone::takePackage() {
+  package = nullptr;
+  toFinalDestination = nullptr;
+  available = true;
+  pickedUp = false;
+}
+
+void Drone::notifyDroneObserver(const Vector3& pos) {
+  this->getReaper()->notifyPosition(pos, this);
+}

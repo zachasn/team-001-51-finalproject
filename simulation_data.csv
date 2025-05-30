@@ -1,0 +1,8 @@
+Creation_time,Entity_type,Entity_id,Entity_name,Distance_traveled(miles),Packages_delivered,Lost_packages,Condition
+May 08 2025 11:23,drone,1,Drone,0,0,1,Excellent
+May 08 2025 11:23,human,4,Human-OG,0,0,0,
+May 08 2025 11:23,helicopter,5,Helicopter,2,0,0,
+May 08 2025 11:23,drone,6,drone-1,1,1,0,Excellent
+May 08 2025 11:23,drone,9,drone-2,0,0,0,Excellent
+May 08 2025 11:23,drone,16,drone-3,0,0,0,Excellent
+May 08 2025 11:24,drone,23,drone-4,0,0,0,Excellent
